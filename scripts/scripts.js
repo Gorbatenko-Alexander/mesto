@@ -15,6 +15,8 @@ edit.addEventListener('click', function() {
 
 exit.addEventListener('click', function() {
   popup.classList.remove('pop-up_opened');
+  fields[0].value = '';
+  fields[1].value = '';
 });
 
 form.addEventListener('submit', function (event) {
