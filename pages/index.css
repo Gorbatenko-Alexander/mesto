@@ -1,0 +1,31 @@
+/* vendor */
+@import url(../vendor/Inter/inter.css);
+@import url(../vendor/normalize.css);
+
+/* footer */
+@import url(..\blocks\footer\footer.css);
+@import url(..\blocks\footer\__copyright\footer__copyright.css);
+
+/* header */
+@import url(..\blocks\header\header.css);
+@import url(..\blocks\header\__line\header__line.css);
+@import url(..\blocks\header\__logo\header__logo.css);
+
+/* main */
+@import url(..\blocks\main\main.css);
+
+/* places */
+@import url(..\blocks\places\places.css);
+@import url(..\blocks\places\__place-card\places__place-card.css);
+@import url(..\blocks\places\__place-like\places__place-like.css);
+@import url(..\blocks\places\__place-pic\places__place-pic.css);
+@import url(..\blocks\places\__place-title\places__place-title.css);
+
+/* profile */
+@import url(..\blocks\profile\profile.css);
+@import url(..\blocks\profile\__about\profile__about.css);
+@import url(..\blocks\profile\__add-button\profile__add-button.css);
+@import url(..\blocks\profile\__avatar\profile__avatar.css);
+@import url(..\blocks\profile\__edit-button\profile__edit-button.css);
+@import url(..\blocks\profile\__info\profile__info.css);
+@import url(..\blocks\profile\__name\profile__name.css);
