@@ -4,3 +4,9 @@
   box-sizing: content-box;
   padding: 67px 19px 60px 19px;
 }
+
+@media screen and (max-width: 759px) {
+  .footer {
+    padding: 48px 19px 36px 19px;
+  }
+}
