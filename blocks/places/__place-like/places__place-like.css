@@ -1,0 +1,6 @@
+.places__place-like {
+  width: 22px;
+  height: 18px;
+  background-image: url("../../../images/like_inactive.png");
+  margin: auto 20px auto auto;
+}
