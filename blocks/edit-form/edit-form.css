@@ -1,0 +1,12 @@
+.edit-form {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  position: relative;
+  z-index: 2;
+  margin: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 36px;
+  box-sizing: border-box;
+}
