@@ -1,4 +1,4 @@
-.edit-form__exit {
+.pop-up__exit {
   width: 32px;
   height: 32px;
   position: absolute;
@@ -7,13 +7,19 @@
   background-image: url("../../../images/exit.png");
   background-size: cover;
   background-repeat: no-repeat;
+  transition: opacity 0.2s;
 }
 
 @media screen and (max-width: 759px) {
-  .edit-form__exit {
+  .pop-up__exit {
     width: 20px;
     height: 20px;
     top: -36px;
     right: 0px;
   }
+}
+
+.pop-up__exit:hover {
+  opacity: 60%;
+  cursor: pointer;
 }

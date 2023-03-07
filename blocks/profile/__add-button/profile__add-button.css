@@ -7,6 +7,7 @@
   box-sizing: border-box;
   border: 2px white solid;
   margin: auto 0 auto auto;
+  transition: opacity 0.2s;
 }
 
 @media screen and (max-width: 759px) {
@@ -16,4 +17,9 @@
     margin: 33px auto 26px;
     background-size: 16px;
   }
+}
+
+.profile__add-button:hover {
+  opacity: 60%;
+  cursor: pointer;
 }

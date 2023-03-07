@@ -14,7 +14,10 @@
   <section class="profile">
     <div class="profile__avatar"></div>
     <div class="profile__info">
-      <h1 class="profile__name">Жак-Ив Кусто<img alt="edit" src="./images/edit.png" class="profile__edit-button"></h1>
+      <div class="profile__title">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <img alt="edit" src="./images/edit.png" class="profile__edit-button">
+      </div>
       <p class="profile__about">Исследователь океана</p>
     </div>
     <div class="profile__add-button"></div>
@@ -54,15 +57,15 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <div class="overlay">
-    <form action="" class="edit-form">
-        <h2 class="edit-form__title">Редактировать профиль</h2>
-        <fieldset class="edit-form__fields">
-          <input type="text" name="name" class="edit-form__field">
-          <input type="text" name="about" class="edit-form__field">
-        </fieldset>
-        <input type="submit" class="edit-form__submit-button" value="Сохранить">
-        <div class="edit-form__exit"></div>
+  <div class="pop-up">
+    <form action="" class="pop-up__container">
+      <h2 class="pop-up__title">Редактировать профиль</h2>
+      <fieldset class="pop-up__fields">
+        <input type="text" name="name" class="pop-up__field">
+        <input type="text" name="about" class="pop-up__field">
+      </fieldset>
+      <input type="submit" class="pop-up__submit-button" value="Сохранить">
+      <div class="pop-up__exit"></div>
     </form>
   </div>
   <script src="./scripts/scripts.js"></script>

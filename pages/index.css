@@ -3,25 +3,26 @@
 @import url(../vendor/normalize.css);
 
 /* Blocks */
-@import url(../blocks/edit-form/edit-form.css);
-@import url(../blocks/edit-form/__exit/edit-form__exit.css);
-@import url(../blocks/edit-form/__fields/edit-form__fields.css);
-@import url(../blocks/edit-form/__field/edit-form__field.css);
-@import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
-@import url(../blocks/edit-form/__title/edit-form__title.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__line/header__line.css);
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/main/main.css);
-@import url(../blocks/overlay/overlay.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/places/__place-card/places__place-card.css);
 @import url(../blocks/places/__place-like/places__place-like.css);
 @import url(../blocks/places/__place-like/_active/places__place-like_active.css);
 @import url(../blocks/places/__place-pic/places__place-pic.css);
 @import url(../blocks/places/__place-title/places__place-title.css);
+@import url(../blocks/pop-up/pop-up.css);
+@import url(../blocks/pop-up/__container/pop-up__container.css);
+@import url(../blocks/pop-up/__exit/pop-up__exit.css);
+@import url(../blocks/pop-up/__field/pop-up__field.css);
+@import url(../blocks/pop-up/__fields/pop-up__fields.css);
+@import url(../blocks/pop-up/__submit-button/pop-up__submit-button.css);
+@import url(../blocks/pop-up/__title/pop-up__title.css);
+@import url(../blocks/pop-up/_opened/pop-up_opened.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__about/profile__about.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
@@ -29,3 +30,4 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__title/profile__title.css);

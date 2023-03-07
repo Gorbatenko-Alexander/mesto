@@ -3,4 +3,10 @@
   height: 18px;
   background-image: url("../../../images/like_inactive.png");
   margin: auto 20px auto auto;
+  transition: opacity 0.2s;
+}
+
+.places__place-like:hover {
+  opacity: 50%;
+  cursor: pointer;
 }
