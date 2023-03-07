@@ -13,6 +13,7 @@
   .profile__add-button {
     width: 100%;
     max-width: 300px;
-    margin: 34px auto 36px;
+    margin: 33px auto 26px;
+    background-size: 16px;
   }
 }

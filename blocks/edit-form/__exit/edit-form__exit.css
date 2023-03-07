@@ -8,3 +8,12 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 759px) {
+  .edit-form__exit {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0px;
+  }
+}
