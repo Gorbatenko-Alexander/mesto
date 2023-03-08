@@ -1,7 +1,13 @@
 .places__place-like {
   width: 22px;
-  height: 18px;
-  background-image: url("../../../images/like_inactive.png");
+  height: 19px;
+  background: none;
+  border: none;
+  padding: 0;
+  background-image: url("../../../images/like_inactive.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   margin: auto 20px auto auto;
   transition: opacity 0.2s;
 }

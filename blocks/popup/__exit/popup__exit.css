@@ -1,0 +1,27 @@
+.popup__exit {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: none;
+  border: none;
+  background-image: url("../../../images/exit.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: opacity 0.2s;
+}
+
+@media screen and (max-width: 759px) {
+  .popup__exit {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0px;
+  }
+}
+
+.popup__exit:hover {
+  opacity: 60%;
+  cursor: pointer;
+}

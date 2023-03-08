@@ -3,7 +3,7 @@
   box-sizing: content-box;
   margin: auto;
   display: flex;
-  padding: 0 19px 10px;
+  padding: 0 0 10px;
 }
 
 @media screen and (max-width: 759px) {

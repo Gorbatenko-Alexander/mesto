@@ -1,6 +1,7 @@
 .main {
-  font-family: Inter, Arial, sans-serif;
-  min-width: 320px;
-  background-color: black;
-  color: white;
+  width: 100%;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0 19px;
+  box-sizing: border-box;
 }

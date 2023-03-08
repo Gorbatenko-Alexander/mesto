@@ -1,9 +1,0 @@
-.pop-up__fields {
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}

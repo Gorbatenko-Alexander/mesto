@@ -1,13 +1,18 @@
 .profile__add-button {
   width: 150px;
   height: 50px;
-  background-image: url("../../../images/cross.png");
+  background: none;
+  border: none;
+  background-image: url("../../../images/cross.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 22px;
   box-sizing: border-box;
   border: 2px white solid;
+  border-radius: 2px;
   margin: auto 0 auto auto;
   transition: opacity 0.2s;
+  padding: 0;
 }
 
 @media screen and (max-width: 759px) {

@@ -1,13 +1,13 @@
 /* vendor */
-@import url(../vendor/Inter/inter.css);
 @import url(../vendor/normalize.css);
+@import url(../vendor/Inter/fonts.css);
 
 /* Blocks */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__line/header__line.css);
 @import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/page/page.css);
 @import url(../blocks/main/main.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/places/__place-card/places__place-card.css);
@@ -15,14 +15,14 @@
 @import url(../blocks/places/__place-like/_active/places__place-like_active.css);
 @import url(../blocks/places/__place-pic/places__place-pic.css);
 @import url(../blocks/places/__place-title/places__place-title.css);
-@import url(../blocks/pop-up/pop-up.css);
-@import url(../blocks/pop-up/__container/pop-up__container.css);
-@import url(../blocks/pop-up/__exit/pop-up__exit.css);
-@import url(../blocks/pop-up/__field/pop-up__field.css);
-@import url(../blocks/pop-up/__fields/pop-up__fields.css);
-@import url(../blocks/pop-up/__submit-button/pop-up__submit-button.css);
-@import url(../blocks/pop-up/__title/pop-up__title.css);
-@import url(../blocks/pop-up/_opened/pop-up_opened.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__exit/popup__exit.css);
+@import url(../blocks/popup/__field/popup__field.css);
+@import url(../blocks/popup/__fields/popup__fields.css);
+@import url(../blocks/popup/__submit-button/popup__submit-button.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__about/profile__about.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
