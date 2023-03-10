@@ -1,15 +1,22 @@
-let popup = document.querySelector(".popup");
+// variables
 
-let exit = document.querySelector(".popup__exit");
-let edit = document.querySelector(".profile__edit-button");
+let editProfilePopup = document.querySelector("#edit_profile");
+let addPlacePopup = document.querySelector("#add_place");
 
-let fieldName = document.querySelector(".popup__field[name='name']");
-let fieldAbout = document.querySelector(".popup__field[name='about']");
+let fieldProfileName = editProfilePopup.querySelector(".popup__field[name='profile_name']");
+let fieldProfileAbout = editProfilePopup.querySelector(".popup__field[name='profile_about']");
+let fieldPlaceName = addPlacePopup.querySelector(".popup__field[name='place_name']");
+let fieldPlacePicLink = addPlacePopup.querySelector(".popup__field[name='place_pic_link']");
 
-let form = document.querySelector(".popup__fields")
+let editProfileForm = editProfilePopup.querySelector(".popup__fields");
+let addPlaceForm = addPlacePopup.querySelector(".popup__fields");
 
 let profileName = document.querySelector(".profile__name");
 let profileAbout = document.querySelector(".profile__about");
+
+let exitButtons = document.querySelectorAll(".popup__exit");
+let editButton = document.querySelector(".profile__edit-button");
+let addButton = document.querySelector(".profile__add-button")
 
 let places = document.querySelector(".places");
 let placeTemplate = document.querySelector("#place").content;
@@ -40,15 +47,26 @@ const initialCards = [
   }
 ];
 
+// functions
+
 function addPlace(placeInfo) {
   let place = placeTemplate.cloneNode(true);
   place.querySelector(".places__place-pic").alt = placeInfo.name;
   place.querySelector(".places__place-pic").src = placeInfo.link;
   place.querySelector(".places__place-title").textContent = placeInfo.name;
-  places.append(place);
-}
 
-initialCards.forEach(addPlace);
+  place.querySelector(".places__place-like").addEventListener('click', function (event) {
+    let target = event.target;
+    target.parentElement.classList.toggle('')
+  });
+
+  place.querySelector(".places__place-remove").addEventListener('click', function (event) {
+    let target = event.target;
+
+  });
+
+  places.prepend(place);
+}
 
 function openPopup (objectName, act) {
   if (act === true) {
@@ -58,21 +76,41 @@ function openPopup (objectName, act) {
   }
 }
 
+// main code
 
-edit.addEventListener('click', function() {
-  openPopup(popup, true);
-  fieldName.value = profileName.textContent;
-  fieldAbout.value = profileAbout.textContent;
+initialCards.forEach(addPlace);
+
+editButton.addEventListener('click', function() {
+  openPopup(editProfilePopup, true);
+  fieldProfileName.value = profileName.textContent;
+  fieldProfileAbout.value = profileAbout.textContent;
 });
 
-exit.addEventListener('click', function() {
-  openPopup(popup, false);
-  form.reset();
+addButton.addEventListener('click', function () {
+  openPopup(addPlacePopup, true);
 });
 
-form.addEventListener('submit', function (event) {
+exitButtons.forEach (function(exit) {
+  exit.addEventListener('click', function (evt) {
+    let target = evt.target;
+    openPopup(target.parentElement.parentElement, false);
+    target.parentElement.querySelector(".popup__fields").reset();
+  });
+});
+
+editProfileForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  profileName.textContent = fieldName.value;
-  profileAbout.textContent = fieldAbout.value;
-  openPopup(popup, false);
+  profileName.textContent = fieldProfileName.value;
+  profileAbout.textContent = fieldProfileAbout.value;
+  openPopup(editProfilePopup, false);
+  editProfileForm.reset();
+});
+
+addPlaceForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  let placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
+  console.log(placeInfo);
+  addPlace(placeInfo);
+  openPopup(addPlacePopup, false);
+  addPlaceForm.reset();
 });
