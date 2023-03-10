@@ -1,0 +1,21 @@
+.places__place-remove {
+  width: 18px;
+  height: 19px;
+  background: none;
+  border: none;
+  background-image: url("../../../images/remove.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.places__place-remove:hover {
+  opacity: 60%;
+  cursor: pointer;
+}

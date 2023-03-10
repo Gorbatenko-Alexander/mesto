@@ -15,6 +15,7 @@
 @import url(../blocks/places/__place-like/_active/places__place-like_active.css);
 @import url(../blocks/places/__place-pic/places__place-pic.css);
 @import url(../blocks/places/__place-title/places__place-title.css);
+@import url(../blocks/places/__place-remove/places__place-remove.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__exit/popup__exit.css);

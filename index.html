@@ -23,36 +23,14 @@
       <button type="button" class="profile__add-button"></button>
     </section>
     <section class="places">
-      <div class="places__place-card">
-        <img alt="Карачаевск" src="./images/kirill-pershin-1088404-unsplash.jpg" class="places__place-pic">
-        <h2 class="places__place-title">Карачаевск</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
-      <div class="places__place-card">
-        <img alt="Гора Эльбрус" src="./images/kirill-pershin-1404681-unsplash.png" class="places__place-pic">
-        <h2 class="places__place-title">Гора Эльбрус</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
-      <div class="places__place-card">
-        <img alt="Домбай" src="./images/kirill-pershin-1556355-unsplash.png" class="places__place-pic">
-        <h2 class="places__place-title">Домбай</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
-      <div class="places__place-card">
-        <img alt="Гора Эльбрус" src="./images/kirill-pershin-1404681-unsplash.png" class="places__place-pic">
-        <h2 class="places__place-title">Гора Эльбрус</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
-      <div class="places__place-card">
-        <img alt="Домбай" src="./images/kirill-pershin-1556355-unsplash.png" class="places__place-pic">
-        <h2 class="places__place-title">Домбай</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
-      <div class="places__place-card">
-        <img alt="Карачаево-Черкесск" src="./images/kirill-pershin-1088404-unsplash.jpg" class="places__place-pic">
-        <h2 class="places__place-title">Карачаево-Черкесия</h2>
-        <button type="button" class="places__place-like"></button>
-      </div>
+      <template id="place">
+        <div class="places__place-card">
+          <img alt="Карачаевск" src="./images/kirill-pershin-1088404-unsplash.jpg" class="places__place-pic">
+          <h2 class="places__place-title">Карачаевск</h2>
+          <button type="button" class="places__place-like"></button>
+          <button type="button" class="places__place-remove"></button>
+        </div>
+      </template>
     </section>
   </main>
   <footer class="footer">

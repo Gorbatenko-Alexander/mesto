@@ -8,9 +8,47 @@ let fieldAbout = document.querySelector(".popup__field[name='about']");
 
 let form = document.querySelector(".popup__fields")
 
-let name = document.querySelector(".profile__name");
-let about = document.querySelector(".profile__about");
+let profileName = document.querySelector(".profile__name");
+let profileAbout = document.querySelector(".profile__about");
 
+let places = document.querySelector(".places");
+let placeTemplate = document.querySelector("#place").content;
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function addPlace(placeInfo) {
+  let place = placeTemplate.cloneNode(true);
+  place.querySelector(".places__place-pic").alt = placeInfo.name;
+  place.querySelector(".places__place-pic").src = placeInfo.link;
+  place.querySelector(".places__place-title").textContent = placeInfo.name;
+  places.append(place);
+}
+
+initialCards.forEach(addPlace);
 
 function openPopup (objectName, act) {
   if (act === true) {
@@ -23,8 +61,8 @@ function openPopup (objectName, act) {
 
 edit.addEventListener('click', function() {
   openPopup(popup, true);
-  fieldName.value = name.textContent;
-  fieldAbout.value = about.textContent;
+  fieldName.value = profileName.textContent;
+  fieldAbout.value = profileAbout.textContent;
 });
 
 exit.addEventListener('click', function() {
@@ -34,7 +72,7 @@ exit.addEventListener('click', function() {
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
-  name.textContent = fieldName.value;
-  about.textContent = fieldAbout.value;
+  profileName.textContent = fieldName.value;
+  profileAbout.textContent = fieldAbout.value;
   openPopup(popup, false);
 });
