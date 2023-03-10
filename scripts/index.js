@@ -1,25 +1,25 @@
 // variables
 
-const editProfilePopup = document.querySelector("#edit_profile");
-const addPlacePopup = document.querySelector("#add_place");
-const zoomPopup = document.querySelector("#pic_zoom");
+const profileEditPopup = document.querySelector("#edit_profile");
+const placeAddPopup = document.querySelector("#add_place");
+const photoZoomPopup = document.querySelector("#pic_zoom");
 
-const fieldProfileName = editProfilePopup.querySelector(".popup__field[name='profile_name']");
-const fieldProfileAbout = editProfilePopup.querySelector(".popup__field[name='profile_about']");
-const fieldPlaceName = addPlacePopup.querySelector(".popup__field[name='place_name']");
-const fieldPlacePicLink = addPlacePopup.querySelector(".popup__field[name='place_pic_link']");
+const fieldProfileName = profileEditPopup.querySelector(".popup__field[name='profile_name']");
+const fieldProfileAbout = profileEditPopup.querySelector(".popup__field[name='profile_about']");
+const fieldPlaceName = placeAddPopup.querySelector(".popup__field[name='place_name']");
+const fieldPlacePicLink = placeAddPopup.querySelector(".popup__field[name='place_pic_link']");
 
-const editProfileForm = editProfilePopup.querySelector(".popup__fields");
-const addPlaceForm = addPlacePopup.querySelector(".popup__fields");
+const profileEditForm = profileEditPopup.querySelector(".popup__fields");
+const placeAddForm = placeAddPopup.querySelector(".popup__fields");
 
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
-const zoomPopupPic = zoomPopup.querySelector(".popup__picture");
-const zoomPopupLabel = zoomPopup.querySelector(".popup__label");
+const photoZoomPopupPic = photoZoomPopup.querySelector(".popup__picture");
+const photoZoomPopupLabel = photoZoomPopup.querySelector(".popup__label");
 
-const exitButtons = document.querySelectorAll(".popup__exit");
-const editButton = document.querySelector(".profile__edit-button");
-const addButton = document.querySelector(".profile__add-button");
+const buttonsExit = document.querySelectorAll(".popup__exit");
+const buttonEdit = document.querySelector(".profile__edit-button");
+const buttonAdd = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
 const placeTemplate = document.querySelector("#place").content;
@@ -53,78 +53,88 @@ const initialCards = [
 
 // functions
 
-function addPlace(placeInfo) {
-  const place = placeTemplate.cloneNode(true);
-  place.querySelector(".places__place-pic").alt = placeInfo.name;
-  place.querySelector(".places__place-pic").src = placeInfo.link;
-  place.querySelector(".places__place-title").textContent = placeInfo.name;
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
+}
 
-  place.querySelector(".places__place-like").addEventListener('click', function (event) {
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
+}
+
+function generatePlace(placeInfo) {
+  const place = placeTemplate.cloneNode(true);
+  const placePic = place.querySelector(".places__place-pic");
+  const placeTitle = place.querySelector(".places__place-title");
+  const placeLikeButton = place.querySelector(".places__place-like");
+  const placeRemoveButton = place.querySelector(".places__place-remove");
+
+  placePic.alt = placeInfo.name;
+  placePic.src = placeInfo.link;
+  placeTitle.textContent = placeInfo.name;
+
+  placeLikeButton.addEventListener('click', function (event) {
     const target = event.target;
     target.classList.toggle('places__place-like_active');
   });
 
-  place.querySelector(".places__place-remove").addEventListener('click', function (event) {
+  placeRemoveButton.addEventListener('click', function (event) {
     const target = event.target;
-    target.parentElement.remove();
+    target.closest(".places__place-card").remove();
   });
 
-  place.querySelector(".places__place-pic").addEventListener('click', function (event) {
+  placePic.addEventListener('click', function (event) {
     const target = event.target;
-    zoomPopupPic.src = target.src;
-    zoomPopupPic.alt = target.alt;
-    zoomPopupLabel.textContent = target.alt;
-    openPopup(zoomPopup, true);
+    photoZoomPopupPic.src = target.src;
+    photoZoomPopupPic.alt = target.alt;
+    photoZoomPopupLabel.textContent = target.alt;
+    openPopup(photoZoomPopup);
   });
 
-  places.prepend(place);
-}
-
-function openPopup (objectName, act) {
-  if (act === true) {
-    objectName.classList.add(objectName.classList[0]+'_opened');
-  } else {
-    objectName.classList.remove(objectName.classList[0]+'_opened');
-  }
+  return place;
 }
 
 // main code
 
-initialCards.forEach(addPlace);
+initialCards.forEach(function(element){
+  places.prepend(generatePlace(element));
+});
 
-editButton.addEventListener('click', function() {
-  openPopup(editProfilePopup, true);
+buttonEdit.addEventListener('click', function() {
+  openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
 });
 
-addButton.addEventListener('click', function () {
-  openPopup(addPlacePopup, true);
+buttonAdd.addEventListener('click', function () {
+  openPopup(placeAddPopup);
 });
 
-exitButtons.forEach (function(exit) {
+buttonsExit.forEach (function(exit) {
   exit.addEventListener('click', function (evt) {
     const target = evt.target;
-    openPopup(target.parentElement.parentElement, false);
+    const popup = target.closest(".popup");
+    const form = popup.querySelector(".popup__fields");
 
-    if (target.parentElement.querySelector(".popup__fields")) {
-      target.parentElement.querySelector(".popup__fields").reset();
+    closePopup(popup);
+
+    if (form) {       // "Не все попапы имеют формы" Именно поэтому я добавил проверку на наличие формы, не совсем понимаю что здесь нужно исправить
+      form.reset();
     }
   });
 });
 
-editProfileForm.addEventListener('submit', function (event) {
+profileEditForm.addEventListener('submit', function (event) {
   event.preventDefault();
   profileName.textContent = fieldProfileName.value;
   profileAbout.textContent = fieldProfileAbout.value;
-  openPopup(editProfilePopup, false);
-  editProfileForm.reset();
+  closePopup(profileEditPopup);
+  profileEditForm.reset();
 });
 
-addPlaceForm.addEventListener('submit', function (event) {
+placeAddForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
-  addPlace(placeInfo);
-  openPopup(addPlacePopup, false);
-  addPlaceForm.reset();
+  places.prepend(generatePlace(placeInfo));
+  closePopup(placeAddPopup);
+  placeAddForm.reset();
 });
