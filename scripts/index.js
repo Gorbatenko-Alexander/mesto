@@ -1,28 +1,29 @@
 // variables
 
-let editProfilePopup = document.querySelector("#edit_profile");
-let addPlacePopup = document.querySelector("#add_place");
-let zoomPopup = document.querySelector("#pic_zoom");
+const editProfilePopup = document.querySelector("#edit_profile");
+const addPlacePopup = document.querySelector("#add_place");
+const zoomPopup = document.querySelector("#pic_zoom");
 
-let fieldProfileName = editProfilePopup.querySelector(".popup__field[name='profile_name']");
-let fieldProfileAbout = editProfilePopup.querySelector(".popup__field[name='profile_about']");
-let fieldPlaceName = addPlacePopup.querySelector(".popup__field[name='place_name']");
-let fieldPlacePicLink = addPlacePopup.querySelector(".popup__field[name='place_pic_link']");
+const fieldProfileName = editProfilePopup.querySelector(".popup__field[name='profile_name']");
+const fieldProfileAbout = editProfilePopup.querySelector(".popup__field[name='profile_about']");
+const fieldPlaceName = addPlacePopup.querySelector(".popup__field[name='place_name']");
+const fieldPlacePicLink = addPlacePopup.querySelector(".popup__field[name='place_pic_link']");
 
-let editProfileForm = editProfilePopup.querySelector(".popup__fields");
-let addPlaceForm = addPlacePopup.querySelector(".popup__fields");
+const editProfileForm = editProfilePopup.querySelector(".popup__fields");
+const addPlaceForm = addPlacePopup.querySelector(".popup__fields");
 
-let profileName = document.querySelector(".profile__name");
-let profileAbout = document.querySelector(".profile__about");
-let zoomPopupPic = zoomPopup.querySelector(".popup__picture");
-let zoomPopupLabel = zoomPopup.querySelector(".popup__label");
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
+const zoomPopupPic = zoomPopup.querySelector(".popup__picture");
+const zoomPopupLabel = zoomPopup.querySelector(".popup__label");
 
-let exitButtons = document.querySelectorAll(".popup__exit");
-let editButton = document.querySelector(".profile__edit-button");
-let addButton = document.querySelector(".profile__add-button");
+const exitButtons = document.querySelectorAll(".popup__exit");
+const editButton = document.querySelector(".profile__edit-button");
+const addButton = document.querySelector(".profile__add-button");
 
-let places = document.querySelector(".places");
-let placeTemplate = document.querySelector("#place").content;
+const places = document.querySelector(".places");
+const placeTemplate = document.querySelector("#place").content;
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -53,23 +54,23 @@ const initialCards = [
 // functions
 
 function addPlace(placeInfo) {
-  let place = placeTemplate.cloneNode(true);
+  const place = placeTemplate.cloneNode(true);
   place.querySelector(".places__place-pic").alt = placeInfo.name;
   place.querySelector(".places__place-pic").src = placeInfo.link;
   place.querySelector(".places__place-title").textContent = placeInfo.name;
 
   place.querySelector(".places__place-like").addEventListener('click', function (event) {
-    let target = event.target;
+    const target = event.target;
     target.classList.toggle('places__place-like_active');
   });
 
   place.querySelector(".places__place-remove").addEventListener('click', function (event) {
-    let target = event.target;
+    const target = event.target;
     target.parentElement.remove();
   });
 
   place.querySelector(".places__place-pic").addEventListener('click', function (event) {
-    let target = event.target;
+    const target = event.target;
     zoomPopupPic.src = target.src;
     zoomPopupPic.alt = target.alt;
     zoomPopupLabel.textContent = target.alt;
@@ -103,7 +104,7 @@ addButton.addEventListener('click', function () {
 
 exitButtons.forEach (function(exit) {
   exit.addEventListener('click', function (evt) {
-    let target = evt.target;
+    const target = evt.target;
     openPopup(target.parentElement.parentElement, false);
 
     if (target.parentElement.querySelector(".popup__fields")) {
@@ -122,7 +123,7 @@ editProfileForm.addEventListener('submit', function (event) {
 
 addPlaceForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  let placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
+  const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
   addPlace(placeInfo);
   openPopup(addPlacePopup, false);
   addPlaceForm.reset();
