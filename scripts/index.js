@@ -123,7 +123,6 @@ editProfileForm.addEventListener('submit', function (event) {
 addPlaceForm.addEventListener('submit', function (event) {
   event.preventDefault();
   let placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
-  console.log(placeInfo);
   addPlace(placeInfo);
   openPopup(addPlacePopup, false);
   addPlaceForm.reset();
