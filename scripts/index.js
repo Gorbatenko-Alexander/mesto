@@ -57,12 +57,12 @@ function addPlace(placeInfo) {
 
   place.querySelector(".places__place-like").addEventListener('click', function (event) {
     let target = event.target;
-    target.parentElement.classList.toggle('')
+    target.classList.toggle('places__place-like_active');
   });
 
   place.querySelector(".places__place-remove").addEventListener('click', function (event) {
     let target = event.target;
-
+    target.parentElement.remove();
   });
 
   places.prepend(place);
