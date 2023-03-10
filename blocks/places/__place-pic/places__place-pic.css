@@ -3,3 +3,7 @@
   aspect-ratio: 1/1;
   flex: 0 0 100%;
 }
+
+.places__place-pic:hover {
+  cursor: pointer;
+}

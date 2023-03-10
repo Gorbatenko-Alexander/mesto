@@ -65,7 +65,7 @@ function addPlace(placeInfo) {
 
   place.querySelector(".places__place-remove").addEventListener('click', function (event) {
     let target = event.target;
-    target.alt
+    target.parentElement.remove();
   });
 
   place.querySelector(".places__place-pic").addEventListener('click', function (event) {

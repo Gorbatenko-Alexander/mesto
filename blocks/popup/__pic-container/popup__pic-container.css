@@ -2,14 +2,8 @@
   display: block;
   position: relative;
   z-index: 2;
-  margin: 90px auto;
+  margin: auto;
   background-size: cover;
   background-repeat: no-repeat;
   box-sizing: border-box;
-}
-
-@media screen and (max-width: 759px) {
-  .popup__pic-container {
-    margin: auto 21px;
-  }
 }
