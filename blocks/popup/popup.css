@@ -12,4 +12,5 @@
   box-sizing: border-box;
   background-color: rgba(0,0,0,0.5);
   transition: 0.2s;
+  font-size: 0;
 }

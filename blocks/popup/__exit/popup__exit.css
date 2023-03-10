@@ -10,6 +10,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   transition: opacity 0.2s;
+  padding: 0;
 }
 
 @media screen and (max-width: 759px) {

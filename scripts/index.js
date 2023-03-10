@@ -2,6 +2,7 @@
 
 let editProfilePopup = document.querySelector("#edit_profile");
 let addPlacePopup = document.querySelector("#add_place");
+let zoomPopup = document.querySelector("#pic_zoom");
 
 let fieldProfileName = editProfilePopup.querySelector(".popup__field[name='profile_name']");
 let fieldProfileAbout = editProfilePopup.querySelector(".popup__field[name='profile_about']");
@@ -13,10 +14,12 @@ let addPlaceForm = addPlacePopup.querySelector(".popup__fields");
 
 let profileName = document.querySelector(".profile__name");
 let profileAbout = document.querySelector(".profile__about");
+let zoomPopupPic = zoomPopup.querySelector(".popup__picture");
+let zoomPopupLabel = zoomPopup.querySelector(".popup__label");
 
 let exitButtons = document.querySelectorAll(".popup__exit");
 let editButton = document.querySelector(".profile__edit-button");
-let addButton = document.querySelector(".profile__add-button")
+let addButton = document.querySelector(".profile__add-button");
 
 let places = document.querySelector(".places");
 let placeTemplate = document.querySelector("#place").content;
@@ -62,7 +65,15 @@ function addPlace(placeInfo) {
 
   place.querySelector(".places__place-remove").addEventListener('click', function (event) {
     let target = event.target;
-    target.parentElement.remove();
+    target.alt
+  });
+
+  place.querySelector(".places__place-pic").addEventListener('click', function (event) {
+    let target = event.target;
+    zoomPopupPic.src = target.src;
+    zoomPopupPic.alt = target.alt;
+    zoomPopupLabel.textContent = target.alt;
+    openPopup(zoomPopup, true);
   });
 
   places.prepend(place);
@@ -94,7 +105,10 @@ exitButtons.forEach (function(exit) {
   exit.addEventListener('click', function (evt) {
     let target = evt.target;
     openPopup(target.parentElement.parentElement, false);
-    target.parentElement.querySelector(".popup__fields").reset();
+
+    if (target.parentElement.querySelector(".popup__fields")) {
+      target.parentElement.querySelector(".popup__fields").reset();
+    }
   });
 });
 
