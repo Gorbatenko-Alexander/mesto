@@ -25,8 +25,6 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const places = document.querySelector(".places");
 const placeTemplate = document.querySelector("#place").content;
 
-const input = new Event('input');
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -118,6 +116,16 @@ function placePopupExitListeners(popups) {
   });
 }
 
+function disableSubmitButton (popup) {
+  const button = popup.querySelector('.popup__submit-button');
+  button.classList.add('popup__submit-button_inactive');
+}
+
+function enableSubmitButton (popup) {
+  const button = popup.querySelector('.popup__submit-button');
+  button.classList.remove('popup__submit-button_inactive');
+}
+
 // main code
 
 initialCards.forEach(function(element){
@@ -130,11 +138,12 @@ buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
-  fieldProfileName.dispatchEvent(input);
+  enableSubmitButton(profileEditPopup);
 });
 
 buttonAdd.addEventListener('click', function () {
   openPopup(placeAddPopup);
+  disableSubmitButton(placeAddPopup);
 });
 
 profileEditForm.addEventListener('submit', function (event) {
