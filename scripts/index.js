@@ -23,7 +23,7 @@ const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
-const placeTemplate = document.querySelector("#place").content;
+const placeTemplate = document.querySelector("#place").content.querySelector('.places__place-card');
 
 const initialCards = [
   {
@@ -55,8 +55,9 @@ const initialCards = [
 // functions
 
 function closeByEsc (evt) {
+  const popupOpened = page.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    popups.forEach(closePopup);
+    closePopup(popupOpened);
   }
 }
 
@@ -66,10 +67,7 @@ function openPopup (popup) {
 }
 
 function closePopup (popup) {
-  const form = popup.querySelector('.popup__fields');
-
   popup.classList.remove('popup_opened');
-  if (form) form.reset();
   page.removeEventListener('keydown', closeByEsc);
 }
 
@@ -94,11 +92,10 @@ function generatePlace(placeInfo) {
     target.closest(".places__place-card").remove();
   });
 
-  placePic.addEventListener('click', function (event) {
-    const target = event.target;
-    photoZoomPopupPic.src = target.src;
-    photoZoomPopupPic.alt = target.alt;
-    photoZoomPopupLabel.textContent = target.alt;
+  placePic.addEventListener('click', function () {
+    photoZoomPopupPic.src = placeInfo.link;
+    photoZoomPopupPic.alt = placeInfo.name;
+    photoZoomPopupLabel.textContent = placeInfo.name;
     openPopup(photoZoomPopup);
   });
 
