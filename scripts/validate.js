@@ -1,29 +1,23 @@
-// variables
-
-const forms = document.querySelectorAll('.popup__fields');
-
 // functions
 
-function showError (field, message) {
-  const errorSpan = field.closest('.popup__fields').querySelector(`.${field.id}-error`);
-  errorSpan.classList.add('popup__error-message_shown');
+function showError (form, field, message, errorMessageShownClass, fieldInvalidClass) {
+  const errorSpan = form.querySelector(`.${field.id}-error`);
+  errorSpan.classList.add(errorMessageShownClass);
   errorSpan.textContent = message;
-  field.classList.add('popup__field_invalid');
+  field.classList.add(fieldInvalidClass);
 }
 
-function hideError (field) {
+function hideError (form, field, errorMessageShownClass, fieldInvalidClass) {
   const errorSpan = field.closest('.popup__fields').querySelector(`.${field.id}-error`);
-  errorSpan.classList.remove('popup__error-message_shown');
-  field.classList.remove('popup__field_invalid');
+  errorSpan.classList.remove(errorMessageShownClass);
+  field.classList.remove(fieldInvalidClass);
 }
 
-function changeErrorState (field) {
+function changeErrorState (form, field, errorMessageShownClass, fieldInvalidClass) {
   if (field.validity.valid) {
-    hideError(field);
-    field.classList.remove('popup__field_invalid');
+    hideError(form, field, errorMessageShownClass, fieldInvalidClass);
   } else {
-    showError(field, field.validationMessage);
-    field.classList.add('popup__field_invalid');
+    showError(form, field, field.validationMessage, errorMessageShownClass, fieldInvalidClass);
   }
 }
 
@@ -33,30 +27,47 @@ function checkValidity (fields) {
   });
 }
 
-function changeButtonState (fields, button) {
+function changeButtonState (fields, button, buttonInactiveClass) {
   if (checkValidity(fields)) {
-    button.classList.remove('popup__submit-button_inactive');
+    button.classList.remove(buttonInactiveClass);
   } else {
-    button.classList.add('popup__submit-button_inactive');
+    button.classList.add(buttonInactiveClass);
   }
 }
 
-function addListeners (form) {
-  const fields = Array.from(form.querySelectorAll('.popup__field'));
-  const button = form.querySelector('.popup__submit-button');
+function addListeners (form, options) {
+  const fields = Array.from(form.querySelectorAll(options.fieldSelector));
+  const button = form.querySelector(options.buttonSelector);
 
   changeButtonState(fields, button);
 
   fields.forEach((field) => {
     field.addEventListener('input', () => {
-      changeErrorState(field);
-      changeButtonState(fields, button);
+      changeErrorState(form, field, options.errorMessageShownClass, options.fieldInvalidClass);
+      changeButtonState(fields, button, options.buttonInactiveClass);
+    });
+
+    field.addEventListener('keypress', (evt) => {
+      if(!checkValidity(fields) && evt.key === 'Enter') evt.preventDefault();
     });
   });
 }
 
+function enableValidation(options) {
+  const forms = document.querySelectorAll(options.formSelector);
+  forms.forEach((form) => {
+    addListeners(form, options);
+  });
+
+}
+
 //main code
 
-forms.forEach((form) => {
-  addListeners(form);
+enableValidation({
+  errorMessageShownClass: 'popup__error-message_shown',
+  fieldInvalidClass: 'popup__field_invalid',
+  buttonInactiveClass: 'popup__submit-button_inactive',
+  fieldSelector: '.popup__field',
+  buttonSelector: '.popup__submit-button',
+  formSelector: '.popup__fields'
 });

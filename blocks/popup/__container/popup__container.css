@@ -9,6 +9,7 @@
   border-radius: 10px;
   padding: 0 36px;
   box-sizing: border-box;
+  cursor: default;
 }
 
 @media screen and (max-width: 759px) {

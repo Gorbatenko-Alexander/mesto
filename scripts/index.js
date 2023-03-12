@@ -4,6 +4,7 @@ const popups = document.querySelectorAll(".popup");
 const profileEditPopup = document.querySelector("#edit-profile");
 const placeAddPopup = document.querySelector("#add-place");
 const photoZoomPopup = document.querySelector("#pic-zoom");
+const page = document.querySelector('.page');
 
 const fieldProfileName = profileEditPopup.querySelector("#profile-name");
 const fieldProfileAbout = profileEditPopup.querySelector("#profile-about");
@@ -105,8 +106,8 @@ function placePopupExitListeners(popups) {
       const popup = evt.currentTarget;
 
       if (target.classList.contains('popup__exit') || target === popup) closePopup(popup);
-    })
-  })
+    });
+  });
 }
 
 // main code
@@ -116,6 +117,12 @@ initialCards.forEach(function(element){
 });
 
 placePopupExitListeners(popups);
+
+page.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    popups.forEach(closePopup);
+  }
+});
 
 buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);

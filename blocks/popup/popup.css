@@ -14,3 +14,7 @@
   transition: 0.5s;
   font-size: 0;
 }
+
+.popup:hover {
+  cursor: pointer;
+}
