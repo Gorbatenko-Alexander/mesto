@@ -1,13 +1,14 @@
 // variables
 
-const profileEditPopup = document.querySelector("#edit_profile");
-const placeAddPopup = document.querySelector("#add_place");
-const photoZoomPopup = document.querySelector("#pic_zoom");
+const popups = document.querySelectorAll(".popup");
+const profileEditPopup = document.querySelector("#edit-profile");
+const placeAddPopup = document.querySelector("#add-place");
+const photoZoomPopup = document.querySelector("#pic-zoom");
 
-const fieldProfileName = profileEditPopup.querySelector(".popup__field[name='profile_name']");
-const fieldProfileAbout = profileEditPopup.querySelector(".popup__field[name='profile_about']");
-const fieldPlaceName = placeAddPopup.querySelector(".popup__field[name='place_name']");
-const fieldPlacePicLink = placeAddPopup.querySelector(".popup__field[name='place_pic_link']");
+const fieldProfileName = profileEditPopup.querySelector("#profile-name");
+const fieldProfileAbout = profileEditPopup.querySelector("#profile-about");
+const fieldPlaceName = placeAddPopup.querySelector("#place-name");
+const fieldPlacePicLink = placeAddPopup.querySelector("#place-pic-link");
 
 const profileEditForm = profileEditPopup.querySelector(".popup__fields");
 const placeAddForm = placeAddPopup.querySelector(".popup__fields");
@@ -17,7 +18,6 @@ const profileAbout = document.querySelector(".profile__about");
 const photoZoomPopupPic = photoZoomPopup.querySelector(".popup__picture");
 const photoZoomPopupLabel = photoZoomPopup.querySelector(".popup__label");
 
-const buttonsExit = document.querySelectorAll(".popup__exit");
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 
@@ -93,6 +93,18 @@ function generatePlace(placeInfo) {
   return place;
 }
 
+function placePopupExitListeners(popups) {
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      const target = evt.target;
+      const popup = evt.currentTarget;
+
+      if (target.classList.contains('popup__exit') || target === popup) closePopup(popup);
+    })
+  })
+}
+
 // main code
 
 initialCards.forEach(function(element){
@@ -107,20 +119,6 @@ buttonEdit.addEventListener('click', function() {
 
 buttonAdd.addEventListener('click', function () {
   openPopup(placeAddPopup);
-});
-
-buttonsExit.forEach (function(exit) {
-  exit.addEventListener('click', function (evt) {
-    const target = evt.target;
-    const popup = target.closest(".popup");
-    const form = popup.querySelector(".popup__fields");
-
-    closePopup(popup);
-
-    if (form) {       // "Не все попапы имеют формы" Именно поэтому я добавил проверку на наличие формы, не совсем понимаю что здесь нужно исправить
-      form.reset();
-    }
-  });
 });
 
 profileEditForm.addEventListener('submit', function (event) {
@@ -138,3 +136,5 @@ placeAddForm.addEventListener('submit', function (event) {
   closePopup(placeAddPopup);
   placeAddForm.reset();
 });
+
+placePopupExitListeners(popups);
