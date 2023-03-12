@@ -166,6 +166,7 @@ profileEditForm.addEventListener('submit', function (event) {
   profileAbout.textContent = fieldProfileAbout.value;
   closePopup(profileEditPopup);
   console.log(profileName.textContent + profileAbout.textContent);
+  profileEditForm.reset();
 });
 
 placeAddForm.addEventListener('submit', function (event) {
@@ -173,4 +174,5 @@ placeAddForm.addEventListener('submit', function (event) {
   const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
   places.prepend(generatePlace(placeInfo));
   closePopup(placeAddPopup);
+  placeAddForm.reset();
 });
