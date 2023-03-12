@@ -62,6 +62,17 @@ function closeByEsc (evt) {
   }
 }
 
+function resetErrors (popup) {
+  const errors = popup.querySelectorAll('.popup__error-message_shown');
+  const errorFields = popup.querySelectorAll('.popup__field_invalid');
+  errors.forEach((error) => {
+    error.classList.remove('popup__error-message_shown')
+  });
+  errorFields.forEach((field) => {
+    field.classList.remove('popup__field_invalid');
+  });
+}
+
 function openPopup (popup) {
   popup.classList.add('popup_opened');
   page.addEventListener('keydown', closeByEsc);
@@ -109,8 +120,10 @@ function placePopupExitListeners(popups) {
       const target = evt.target;
       const popup = evt.currentTarget;
 
-      if (target.classList.contains('popup__exit') || target === popup) closePopup(popup);
-      if (popup.querySelector('.popup__fields')) popup.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
+      if (target.classList.contains('popup__exit') || target === popup) {
+        closePopup(popup);
+        if (popup.querySelector('.popup__fields')) popup.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
+      }
     });
   });
 }
@@ -138,11 +151,13 @@ buttonEdit.addEventListener('click', function() {
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
   enableSubmitButton(profileEditPopup);
+  resetErrors(profileEditPopup);
 });
 
 buttonAdd.addEventListener('click', function () {
   openPopup(placeAddPopup);
   disableSubmitButton(placeAddPopup);
+  resetErrors(placeAddPopup);
 });
 
 profileEditForm.addEventListener('submit', function (event) {
