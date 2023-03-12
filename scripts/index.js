@@ -24,6 +24,8 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const places = document.querySelector(".places");
 const placeTemplate = document.querySelector("#place").content;
 
+const input = new Event('input');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -58,7 +60,10 @@ function openPopup (popup) {
 }
 
 function closePopup (popup) {
+  const form = popup.querySelector('.popup__fields');
+
   popup.classList.remove('popup_opened');
+  if (form) form.reset();
 }
 
 function generatePlace(placeInfo) {
@@ -96,7 +101,6 @@ function generatePlace(placeInfo) {
 function placePopupExitListeners(popups) {
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
-      evt.preventDefault();
       const target = evt.target;
       const popup = evt.currentTarget;
 
@@ -111,10 +115,13 @@ initialCards.forEach(function(element){
   places.prepend(generatePlace(element));
 });
 
+placePopupExitListeners(popups);
+
 buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
+  fieldProfileName.dispatchEvent(input);
 });
 
 buttonAdd.addEventListener('click', function () {
@@ -127,6 +134,7 @@ profileEditForm.addEventListener('submit', function (event) {
   profileAbout.textContent = fieldProfileAbout.value;
   closePopup(profileEditPopup);
   profileEditForm.reset();
+  console.log(profileName.textContent + profileAbout.textContent);
 });
 
 placeAddForm.addEventListener('submit', function (event) {
@@ -136,5 +144,3 @@ placeAddForm.addEventListener('submit', function (event) {
   closePopup(placeAddPopup);
   placeAddForm.reset();
 });
-
-placePopupExitListeners(popups);

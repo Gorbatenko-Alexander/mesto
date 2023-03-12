@@ -40,13 +40,13 @@
     <div class="popup__container">
       <button type="button" class="popup__exit"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" name="edit-profile" class="popup__fields">
+      <form action="#" name="edit-profile" class="popup__fields" novalidate>
         <label class="popup__input-container">
-          <input type="text" id="profile-name" class="popup__field" placeholder="Имя">
+          <input type="text" id="profile-name" class="popup__field" placeholder="Имя" required minlength="2" maxlength="40">
           <span class="profile-name-error popup__error-message"></span>
         </label>
         <label class="popup__input-container">
-          <input type="text" id="profile-about" class="popup__field" placeholder="О себе">
+          <input type="text" id="profile-about" class="popup__field" placeholder="О себе" required minlength="2" maxlength="200">
           <span class="profile-about-error popup__error-message"></span>
         </label>
         <input type="submit" class="popup__submit-button" value="Сохранить">
@@ -57,13 +57,13 @@
     <div class="popup__container">
       <button type="button" class="popup__exit"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form action="#" name="add-place" class="popup__fields">
+      <form action="#" name="add-place" class="popup__fields" novalidate>
         <label class="popup__input-container">
-          <input type="text" id="place-name" class="popup__field" placeholder="Название">
+          <input type="text" id="place-name" class="popup__field" placeholder="Название" required minlength="2" maxlength="30">
           <span class="place-name-error popup__error-message"></span>
         </label>
         <label class="popup__input-container">
-          <input type="text" id="place-pic-link" class="popup__field" placeholder="Ссылка на картинку">
+          <input type="url" id="place-pic-link" class="popup__field" placeholder="Ссылка на картинку" required>
           <span class="place-pic-link-error popup__error-message"></span>
         </label>
         <input type="submit" class="popup__submit-button" value="Сохранить">

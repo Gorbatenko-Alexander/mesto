@@ -1,8 +1,19 @@
 .popup__error-message {
+  width: 100%;
   visibility: hidden;
   display: block;
   position: absolute;
   left: 0;
-  bottom: 17px;
+  top: 40px;
+  z-index: 3;
   transition: 0.1s;
+  overflow: hidden;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
