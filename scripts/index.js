@@ -56,8 +56,15 @@ const initialCards = [
 
 // functions
 
+function closeByEsc (evt) {
+  if (evt.key === 'Escape') {
+    popups.forEach(closePopup);
+  }
+}
+
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  page.addEventListener('keydown', closeByEsc);
 }
 
 function closePopup (popup) {
@@ -65,6 +72,7 @@ function closePopup (popup) {
 
   popup.classList.remove('popup_opened');
   if (form) form.reset();
+  page.removeEventListener('keydown', closeByEsc);
 }
 
 function generatePlace(placeInfo) {
@@ -117,12 +125,6 @@ initialCards.forEach(function(element){
 });
 
 placePopupExitListeners(popups);
-
-page.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    popups.forEach(closePopup);
-  }
-});
 
 buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
