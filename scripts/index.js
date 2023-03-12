@@ -58,6 +58,7 @@ function closeByEsc (evt) {
   const popupOpened = page.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
     closePopup(popupOpened);
+    if (popupOpened.querySelector('.popup__fields')) popupOpened.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
   }
 }
 
@@ -109,6 +110,7 @@ function placePopupExitListeners(popups) {
       const popup = evt.currentTarget;
 
       if (target.classList.contains('popup__exit') || target === popup) closePopup(popup);
+      if (popup.querySelector('.popup__fields')) popup.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
     });
   });
 }
@@ -148,7 +150,6 @@ profileEditForm.addEventListener('submit', function (event) {
   profileName.textContent = fieldProfileName.value;
   profileAbout.textContent = fieldProfileAbout.value;
   closePopup(profileEditPopup);
-  profileEditForm.reset();
   console.log(profileName.textContent + profileAbout.textContent);
 });
 
@@ -157,5 +158,4 @@ placeAddForm.addEventListener('submit', function (event) {
   const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
   places.prepend(generatePlace(placeInfo));
   closePopup(placeAddPopup);
-  placeAddForm.reset();
 });
