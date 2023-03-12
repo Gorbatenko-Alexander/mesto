@@ -35,7 +35,7 @@ function changeButtonState (fields, button, buttonInactiveClass) {
   }
 }
 
-function addListeners (form, options) {
+function addDynamicListeners (form, options) {
   const fields = Array.from(form.querySelectorAll(options.fieldSelector));
   const button = form.querySelector(options.buttonSelector);
 
@@ -53,12 +53,35 @@ function addListeners (form, options) {
   });
 }
 
-function enableValidation(options) {
-  const forms = document.querySelectorAll(options.formSelector);
-  forms.forEach((form) => {
-    addListeners(form, options);
+function addErrorClearListeners (options) { //добавляем слушатели в теле отдельной функции
+  const buttonEdit = document.querySelector(options.buttonEditSelector);
+  const buttonAdd = document.querySelector(options.buttonAddSelector);
+  const editForm = document.querySelector(options.editFormSelector);
+  const editFormFields = editForm.querySelectorAll(options.fieldSelector);
+  const addForm = document.querySelector(options.addFormSelector);
+  const addFormFields = addForm.querySelectorAll(options.fieldSelector);
+
+  buttonEdit.addEventListener('click', () => {
+    editFormFields.forEach((field) => {
+      hideError(editForm, field, options.errorMessageShownClass, options.fieldInvalidClass)
+    });
   });
 
+  buttonAdd.addEventListener('click', () => {
+    addFormFields.forEach((field) => {
+      hideError(addForm, field, options.errorMessageShownClass, options.fieldInvalidClass)
+    });
+  });
+}
+
+function enableValidation(options) {
+  const forms = document.querySelectorAll(options.formSelector);
+
+  forms.forEach((form) => {
+    addDynamicListeners(form, options);
+  });
+
+  addErrorClearListeners(options);
 }
 
 //main code
@@ -69,5 +92,9 @@ enableValidation({
   buttonInactiveClass: 'popup__submit-button_inactive',
   fieldSelector: '.popup__field',
   buttonSelector: '.popup__submit-button',
-  formSelector: '.popup__fields'
+  formSelector: '.popup__fields',
+  buttonEditSelector: '.profile__edit-button',
+  buttonAddSelector: '.profile__add-button',
+  editFormSelector: '[name=edit-profile]',
+  addFormSelector: '[name=add-place]'
 });

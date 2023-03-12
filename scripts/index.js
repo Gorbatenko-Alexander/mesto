@@ -55,10 +55,9 @@ const initialCards = [
 // functions
 
 function closeByEsc (evt) {
-  const popupOpened = page.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupOpened = page.querySelector('.popup_opened'); //перенёс объявление переменной
     closePopup(popupOpened);
-    if (popupOpened.querySelector('.popup__fields')) popupOpened.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
   }
 }
 
@@ -122,7 +121,6 @@ function placePopupExitListeners(popups) {
 
       if (target.classList.contains('popup__exit') || target === popup) {
         closePopup(popup);
-        if (popup.querySelector('.popup__fields')) popup.querySelector('.popup__fields').reset(); // Проверка наличия формы и её сброс
       }
     });
   });
@@ -148,13 +146,14 @@ placePopupExitListeners(popups);
 
 buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
-  fieldProfileName.value = profileName.textContent;
+  fieldProfileName.value = profileName.textContent;  //поскольку поля перезаписываются в любом случае - сброс формы не требуется
   fieldProfileAbout.value = profileAbout.textContent;
   enableSubmitButton(profileEditPopup);
   resetErrors(profileEditPopup);
 });
 
 buttonAdd.addEventListener('click', function () {
+  placeAddForm.reset(); //перенёс сброс формы на открытие
   openPopup(placeAddPopup);
   disableSubmitButton(placeAddPopup);
   resetErrors(placeAddPopup);
