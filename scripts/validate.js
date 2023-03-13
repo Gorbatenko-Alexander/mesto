@@ -56,9 +56,9 @@ function addDynamicListeners (form, options) {
 function addErrorClearListeners (options) { //добавляем слушатели в теле отдельной функции
   const buttonEdit = document.querySelector(options.buttonEditSelector);
   const buttonAdd = document.querySelector(options.buttonAddSelector);
-  const formEdit = document.querySelector(options.editFormSelector);
+  const formEdit = document.querySelector(options.formEditSelector);
   const formEditFields = formEdit.querySelectorAll(options.fieldSelector);
-  const formAdd = document.querySelector(options.addFormSelector);
+  const formAdd = document.querySelector(options.formAddSelector);
   const formAddFields = formAdd.querySelectorAll(options.fieldSelector);
 
   buttonEdit.addEventListener('click', () => {
@@ -95,6 +95,6 @@ enableValidation({
   formSelector: '.popup__fields',
   buttonEditSelector: '.profile__edit-button',
   buttonAddSelector: '.profile__add-button',
-  editFormSelector: '[name=edit-profile]',
-  addFormSelector: '[name=add-place]'
+  formEditSelector: '[name=edit-profile]',
+  formAddSelector: '[name=add-place]'
 });
