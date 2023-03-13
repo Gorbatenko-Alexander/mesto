@@ -61,7 +61,7 @@ function closeByEsc (evt) {
   }
 }
 
-function resetErrors (popup) {
+/* function resetErrors (popup) {
   const errors = popup.querySelectorAll('.popup__error-message_shown');
   const errorFields = popup.querySelectorAll('.popup__field_invalid');
   errors.forEach((error) => {
@@ -70,7 +70,7 @@ function resetErrors (popup) {
   errorFields.forEach((field) => {
     field.classList.remove('popup__field_invalid');
   });
-}
+} */
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
@@ -149,14 +149,14 @@ buttonEdit.addEventListener('click', function() {
   fieldProfileName.value = profileName.textContent;  //поскольку поля перезаписываются в любом случае - сброс формы не требуется
   fieldProfileAbout.value = profileAbout.textContent;
   enableSubmitButton(profileEditPopup);
-  resetErrors(profileEditPopup);
+  /* resetErrors(profileEditPopup); */
 });
 
 buttonAdd.addEventListener('click', function () {
   placeAddForm.reset(); //перенёс сброс формы на открытие
   openPopup(placeAddPopup);
   disableSubmitButton(placeAddPopup);
-  resetErrors(placeAddPopup);
+  /* resetErrors(placeAddPopup); */
 });
 
 profileEditForm.addEventListener('submit', function (event) {
