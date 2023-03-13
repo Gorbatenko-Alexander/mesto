@@ -56,20 +56,20 @@ function addDynamicListeners (form, options) {
 function addErrorClearListeners (options) { //добавляем слушатели в теле отдельной функции
   const buttonEdit = document.querySelector(options.buttonEditSelector);
   const buttonAdd = document.querySelector(options.buttonAddSelector);
-  const editForm = document.querySelector(options.editFormSelector);
-  const editFormFields = editForm.querySelectorAll(options.fieldSelector);
-  const addForm = document.querySelector(options.addFormSelector);
-  const addFormFields = addForm.querySelectorAll(options.fieldSelector);
+  const formedit = document.querySelector(options.editFormSelector);
+  const formEditFields = formedit.querySelectorAll(options.fieldSelector);
+  const formAdd = document.querySelector(options.addFormSelector);
+  const formAddFields = formAdd.querySelectorAll(options.fieldSelector);
 
   buttonEdit.addEventListener('click', () => {
-    editFormFields.forEach((field) => {
-      hideError(editForm, field, options.errorMessageShownClass, options.fieldInvalidClass)
+    formEditFields.forEach((field) => {
+      hideError(formedit, field, options.errorMessageShownClass, options.fieldInvalidClass)
     });
   });
 
   buttonAdd.addEventListener('click', () => {
-    addFormFields.forEach((field) => {
-      hideError(addForm, field, options.errorMessageShownClass, options.fieldInvalidClass)
+    formAddFields.forEach((field) => {
+      hideError(formAdd, field, options.errorMessageShownClass, options.fieldInvalidClass)
     });
   });
 }
