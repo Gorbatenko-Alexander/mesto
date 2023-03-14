@@ -48,28 +48,7 @@ function addDynamicListeners (form, options) {
     });
 
     field.addEventListener('keypress', (evt) => {
-      if(!checkValidity(fields) && evt.key === 'Enter') evt.preventDefault();
-    });
-  });
-}
-
-function addErrorClearListeners (options) { //добавляем слушатели в теле отдельной функции
-  const buttonEdit = document.querySelector(options.buttonEditSelector);
-  const buttonAdd = document.querySelector(options.buttonAddSelector);
-  const formEdit = document.querySelector(options.formEditSelector);
-  const formEditFields = formEdit.querySelectorAll(options.fieldSelector);
-  const formAdd = document.querySelector(options.formAddSelector);
-  const formAddFields = formAdd.querySelectorAll(options.fieldSelector);
-
-  buttonEdit.addEventListener('click', () => {
-    formEditFields.forEach((field) => {
-      hideError(formEdit, field, options.errorMessageShownClass, options.fieldInvalidClass)
-    });
-  });
-
-  buttonAdd.addEventListener('click', () => {
-    formAddFields.forEach((field) => {
-      hideError(formAdd, field, options.errorMessageShownClass, options.fieldInvalidClass)
+      if(!checkValidity(fields) && evt.key === 'Enter') evt.preventDefault(); //предотвращение сабмита по Enter если не пройдена валидация
     });
   });
 }
@@ -80,8 +59,6 @@ function enableValidation(options) {
   forms.forEach((form) => {
     addDynamicListeners(form, options);
   });
-
-  addErrorClearListeners(options);
 }
 
 //main code
@@ -93,8 +70,4 @@ enableValidation({
   fieldSelector: '.popup__field',
   buttonSelector: '.popup__submit-button',
   formSelector: '.popup__fields',
-  buttonEditSelector: '.profile__edit-button',
-  buttonAddSelector: '.profile__add-button',
-  formEditSelector: '[name=edit-profile]',
-  formAddSelector: '[name=add-place]'
 });

@@ -25,6 +25,8 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const places = document.querySelector(".places");
 const placeTemplate = document.querySelector("#place").content.querySelector('.places__place-card');
 
+const inputEvt = new Event('input');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -60,17 +62,6 @@ function closeByEsc (evt) {
     closePopup(popupOpened);
   }
 }
-
-/* function resetErrors (popup) {
-  const errors = popup.querySelectorAll('.popup__error-message_shown');
-  const errorFields = popup.querySelectorAll('.popup__field_invalid');
-  errors.forEach((error) => {
-    error.classList.remove('popup__error-message_shown')
-  });
-  errorFields.forEach((field) => {
-    field.classList.remove('popup__field_invalid');
-  });
-} */
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
@@ -126,16 +117,6 @@ function placePopupExitListeners(popups) {
   });
 }
 
-function disableSubmitButton (popup) {
-  const button = popup.querySelector('.popup__submit-button');
-  button.classList.add('popup__submit-button_inactive');
-}
-
-function enableSubmitButton (popup) {
-  const button = popup.querySelector('.popup__submit-button');
-  button.classList.remove('popup__submit-button_inactive');
-}
-
 // main code
 
 initialCards.forEach(function(element){
@@ -148,15 +129,15 @@ buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;  //поскольку поля перезаписываются в любом случае - сброс формы не требуется
   fieldProfileAbout.value = profileAbout.textContent;
-  enableSubmitButton(profileEditPopup);
-  /* resetErrors(profileEditPopup); */
+  fieldProfileName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
+  fieldProfileAbout.dispatchEvent(inputEvt);
 });
 
 buttonAdd.addEventListener('click', function () {
-  placeAddForm.reset(); //перенёс сброс формы на открытие
+  placeAddForm.reset(); //сброс формы на открытии
   openPopup(placeAddPopup);
-  disableSubmitButton(placeAddPopup);
-  /* resetErrors(placeAddPopup); */
+  fieldPlaceName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
+  fieldPlacePicLink.dispatchEvent(inputEvt);
 });
 
 profileEditForm.addEventListener('submit', function (event) {
@@ -164,8 +145,6 @@ profileEditForm.addEventListener('submit', function (event) {
   profileName.textContent = fieldProfileName.value;
   profileAbout.textContent = fieldProfileAbout.value;
   closePopup(profileEditPopup);
-  console.log(profileName.textContent + profileAbout.textContent);
-  profileEditForm.reset();
 });
 
 placeAddForm.addEventListener('submit', function (event) {
@@ -173,5 +152,4 @@ placeAddForm.addEventListener('submit', function (event) {
   const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
   places.prepend(generatePlace(placeInfo));
   closePopup(placeAddPopup);
-  placeAddForm.reset();
 });
