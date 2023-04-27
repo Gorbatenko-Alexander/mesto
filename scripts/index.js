@@ -1,7 +1,7 @@
 // imports
 
 import {initialCards, validationOptions} from './Data.js';
-import {openPopup, closePopup, placePopupExitListeners} from './GlobalFunctions.js';
+import {openPopup, closePopup, placePopupExitListeners, resetErrors} from './GlobalFunctions.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 
@@ -10,8 +10,6 @@ import {FormValidator} from './FormValidator.js';
 const popups = document.querySelectorAll(".popup");
 const profileEditPopup = document.querySelector("#edit-profile");
 const placeAddPopup = document.querySelector("#add-place");
-const page = document.querySelector('.page');
-const forms = document.querySelectorAll(".popup__fields");
 
 const fieldProfileName = profileEditPopup.querySelector("#profile-name");
 const fieldProfileAbout = profileEditPopup.querySelector("#profile-about");
@@ -29,48 +27,51 @@ const buttonAdd = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
 
-const inputEvt = new Event('input');
+
+// functions
+
+function createCard(cardInfo) {
+  const card = new Card(cardInfo, '#place');
+  return card.returnCard();
+}
 
 // main code
 
 initialCards.forEach(function(element){
-  const card = new Card(element, '#place');
-  places.prepend(card.returnCard(page));
+  places.prepend(createCard(element));
 });
 
-forms.forEach((form) => {
-  const validator = new FormValidator(validationOptions, form);
-  validator.enableValidation();
-});
+const validatorEdit = new FormValidator(validationOptions, profileEditForm);
+validatorEdit.enableValidation();
 
-placePopupExitListeners(popups, page);
+const validatorAdd = new FormValidator(validationOptions, placeAddForm);
+validatorAdd.enableValidation();
+
+placePopupExitListeners(popups);
 
 buttonEdit.addEventListener('click', function() {
-  openPopup(profileEditPopup, page);
-  fieldProfileName.value = profileName.textContent;  //поскольку поля перезаписываются в любом случае - сброс формы не требуется
+  openPopup(profileEditPopup);
+  fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
-  fieldProfileName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
-  fieldProfileAbout.dispatchEvent(inputEvt);
+  resetErrors(profileEditPopup);
 });
 
 buttonAdd.addEventListener('click', function () {
-  placeAddForm.reset(); //сброс формы на открытии
-  openPopup(placeAddPopup, page);
-  fieldPlaceName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
-  fieldPlacePicLink.dispatchEvent(inputEvt);
+  placeAddForm.reset();
+  openPopup(placeAddPopup);
+  resetErrors(placeAddPopup);
 });
 
 profileEditForm.addEventListener('submit', function (event) {
   event.preventDefault();
   profileName.textContent = fieldProfileName.value;
   profileAbout.textContent = fieldProfileAbout.value;
-  closePopup(profileEditPopup, page);
+  closePopup(profileEditPopup);
 });
 
 placeAddForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const placeInfo = {name: fieldPlaceName.value, link: fieldPlacePicLink.value};
-  const card = new Card(placeInfo, '#place');
-  places.prepend(card.returnCard(page));
-  closePopup(placeAddPopup, page);
+  places.prepend(createCard(placeInfo));
+  closePopup(placeAddPopup);
 });

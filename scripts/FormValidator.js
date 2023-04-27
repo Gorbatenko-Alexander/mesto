@@ -4,6 +4,8 @@ export class FormValidator {
   constructor(options, form) {
     this._options = options;
     this._form = form;
+    this._fields = Array.from(this._form.querySelectorAll(this._options.fieldSelector));
+    this._button = this._form.querySelector(this._options.buttonSelector);
   }
 
   _showError(form, field, message, errorMessageShownClass, fieldInvalidClass) {
@@ -36,25 +38,20 @@ export class FormValidator {
   _changeButtonState(fields, button, buttonInactiveClass) {
     if (this._checkValidity(fields)) {
       button.classList.remove(buttonInactiveClass);
+      button.disabled = false;
     } else {
       button.classList.add(buttonInactiveClass);
+      button.disabled = true;
     }
   }
 
   enableValidation() {
-    const fields = Array.from(this._form.querySelectorAll(this._options.fieldSelector));
-    const button = this._form.querySelector(this._options.buttonSelector);
+    this._changeButtonState(this._fields, this._button, this._options.buttonInactiveClass);
 
-    this._changeButtonState(fields, button, this._options.buttonInactiveClass);
-
-    fields.forEach((field) => {
+    this._fields.forEach((field) => {
       field.addEventListener('input', () => {
         this._changeErrorState(this._form, field, this._options.errorMessageShownClass, this._options.fieldInvalidClass);
-        this._changeButtonState(fields, button, this._options.buttonInactiveClass);
-      });
-
-      field.addEventListener('keypress', (evt) => {
-        if (!this._checkValidity(fields) && evt.key === 'Enter') evt.preventDefault();
+        this._changeButtonState(this._fields, this._button, this._options.buttonInactiveClass);
       });
     });
   }

@@ -2,6 +2,12 @@
 
 import {openPopup} from './GlobalFunctions.js';
 
+// variables
+
+const photoZoomPopup = document.querySelector("#pic-zoom");
+const photoZoomPopupPic = photoZoomPopup.querySelector(".popup__picture");
+const photoZoomPopupLabel = photoZoomPopup.querySelector(".popup__label");
+
 // class
 
 export class Card {
@@ -14,10 +20,6 @@ export class Card {
     this._placeTitle = this._place.querySelector(".places__place-title");
     this._placeLikeButton = this._place.querySelector(".places__place-like");
     this._placeRemoveButton = this._place.querySelector(".places__place-remove");
-
-    this._photoZoomPopup = document.querySelector("#pic-zoom");
-    this._photoZoomPopupPic = this._photoZoomPopup.querySelector(".popup__picture");
-    this._photoZoomPopupLabel = this._photoZoomPopup.querySelector(".popup__label");
   }
 
   _addContent () {
@@ -40,20 +42,24 @@ export class Card {
     });
   }
 
-  _addZoomListener (page) {
+  _addZoomListener () {
     this._placePic.addEventListener('click', () => {
-      this._photoZoomPopupPic.src = this._placeInfo.link;
-      this._photoZoomPopupPic.alt = this._placeInfo.name;
-      this._photoZoomPopupLabel.textContent = this._placeInfo.name;
-      openPopup(this._photoZoomPopup, page);
+      photoZoomPopupPic.src = this._placeInfo.link;
+      photoZoomPopupPic.alt = this._placeInfo.name;
+      photoZoomPopupLabel.textContent = this._placeInfo.name;
+      openPopup(photoZoomPopup);
     });
   }
 
-  returnCard (page) {
-    this._addContent ();
+  _setEventListeners() {
     this._addLikeListener ();
     this._addRemoveListener ();
-    this._addZoomListener (page);
+    this._addZoomListener ();
+  }
+
+  returnCard () {
+    this._addContent ();
+    this._setEventListeners();
 
     return this._place;
   }
