@@ -1,14 +1,20 @@
-import {openPopup} from './global-functions.js';
+// imports
+
+import {openPopup} from './GlobalFunctions.js';
+
+// class
 
 export class Card {
   constructor (placeInfo, selector) {
     this._placeInfo = placeInfo;
+
     this._placeTemplate = document.querySelector(selector).content.querySelector('.places__place-card');
     this._place = this._placeTemplate.cloneNode(true);
     this._placePic = this._place.querySelector(".places__place-pic");
     this._placeTitle = this._place.querySelector(".places__place-title");
     this._placeLikeButton = this._place.querySelector(".places__place-like");
     this._placeRemoveButton = this._place.querySelector(".places__place-remove");
+
     this._photoZoomPopup = document.querySelector("#pic-zoom");
     this._photoZoomPopupPic = this._photoZoomPopup.querySelector(".popup__picture");
     this._photoZoomPopupLabel = this._photoZoomPopup.querySelector(".popup__label");

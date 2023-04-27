@@ -1,13 +1,17 @@
-// variables
+// imports
 
-import {initialCards} from './cards.js';
-import {openPopup, closePopup, placePopupExitListeners} from './global-functions.js';
-import {Card} from './card.js';
+import {initialCards, validationOptions} from './Data.js';
+import {openPopup, closePopup, placePopupExitListeners} from './GlobalFunctions.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
+// variables
 
 const popups = document.querySelectorAll(".popup");
 const profileEditPopup = document.querySelector("#edit-profile");
 const placeAddPopup = document.querySelector("#add-place");
 const page = document.querySelector('.page');
+const forms = document.querySelectorAll(".popup__fields");
 
 const fieldProfileName = profileEditPopup.querySelector("#profile-name");
 const fieldProfileAbout = profileEditPopup.querySelector("#profile-about");
@@ -27,13 +31,16 @@ const places = document.querySelector(".places");
 
 const inputEvt = new Event('input');
 
-
-
 // main code
 
 initialCards.forEach(function(element){
   const card = new Card(element, '#place');
   places.prepend(card.returnCard(page));
+});
+
+forms.forEach((form) => {
+  const validator = new FormValidator(validationOptions, form);
+  validator.enableValidation();
 });
 
 placePopupExitListeners(popups, page);
