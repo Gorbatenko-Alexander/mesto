@@ -27,6 +27,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
 
+const inputEvt = new Event('input');
 
 // functions
 
@@ -53,13 +54,17 @@ buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
-  resetErrors(profileEditPopup);
+  fieldProfileName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
+  fieldProfileAbout.dispatchEvent(inputEvt);
 });
 
 buttonAdd.addEventListener('click', function () {
   placeAddForm.reset();
   openPopup(placeAddPopup);
-  resetErrors(placeAddPopup);
+  fieldPlaceName.dispatchEvent(inputEvt);
+  fieldPlaceName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
+  fieldPlacePicLink.dispatchEvent(inputEvt);
+  resetErrors(placeAddPopup); // Сброс ошибок, чтобы при открытии они не отображались, хотя на мой взгляд логичнее отображать ошибки раз поля пустые
 });
 
 profileEditForm.addEventListener('submit', function (event) {
