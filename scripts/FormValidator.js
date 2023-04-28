@@ -1,6 +1,6 @@
 // class
 
-export class FormValidator {
+export class FormValidator { // вроде всё вычистил, теперь обращение только через this где возможно
   constructor(options, form) {
     this._options = options;
     this._form = form;
@@ -8,50 +8,58 @@ export class FormValidator {
     this._button = this._form.querySelector(this._options.buttonSelector);
   }
 
-  _showError(form, field, message, errorMessageShownClass, fieldInvalidClass) {
-    const errorSpan = form.querySelector(`.${field.id}-error`);
-    errorSpan.classList.add(errorMessageShownClass);
-    errorSpan.textContent = message;
-    field.classList.add(fieldInvalidClass);
+  _showError(field) {
+    const errorSpan = this._form.querySelector(`.${field.id}-error`);
+    errorSpan.classList.add(this._options.errorMessageShownClass);
+    errorSpan.textContent = field.validationMessage;
+    field.classList.add(this._options.fieldInvalidClass);
   }
 
-  _hideError(form, field, errorMessageShownClass, fieldInvalidClass) {
-    const errorSpan = field.closest('.popup__fields').querySelector(`.${field.id}-error`);
-    errorSpan.classList.remove(errorMessageShownClass);
-    field.classList.remove(fieldInvalidClass);
+  _hideError(field) {
+    const errorSpan = this._form.querySelector(`.${field.id}-error`);
+    errorSpan.classList.remove(this._options.errorMessageShownClass);
+    field.classList.remove(this._options.fieldInvalidClass);
   }
 
-  _changeErrorState(form, field, errorMessageShownClass, fieldInvalidClass) {
+  _changeErrorState(field) {
     if (field.validity.valid) {
-      this._hideError(form, field, errorMessageShownClass, fieldInvalidClass);
+      this._hideError(field);
     } else {
-      this._showError(form, field, field.validationMessage, errorMessageShownClass, fieldInvalidClass);
+      this._showError(field);
     }
   }
 
-  _checkValidity(fields) {
-    return fields.every((field) => {
+  _checkValidity() {
+    return this._fields.every((field) => {
       return field.validity.valid;
     });
   }
 
-  _changeButtonState(fields, button, buttonInactiveClass) {
-    if (this._checkValidity(fields)) {
-      button.classList.remove(buttonInactiveClass);
-      button.disabled = false;
+  _changeButtonState() {
+    if (this._checkValidity()) {
+      this._button.classList.remove(this._options.buttonInactiveClass);
+      this._button.disabled = false;
     } else {
-      button.classList.add(buttonInactiveClass);
-      button.disabled = true;
+      this._button.classList.add(this._options.buttonInactiveClass);
+      this._button.disabled = true;
     }
   }
 
+  resetErrors () { // добавил очистку ошибок и состояние кнопки
+    this._fields.forEach((field) => {
+      this._hideError(field);
+    })
+
+    this._changeButtonState();
+  }
+
   enableValidation() {
-    this._changeButtonState(this._fields, this._button, this._options.buttonInactiveClass);
+    this._changeButtonState();
 
     this._fields.forEach((field) => {
       field.addEventListener('input', () => {
-        this._changeErrorState(this._form, field, this._options.errorMessageShownClass, this._options.fieldInvalidClass);
-        this._changeButtonState(this._fields, this._button, this._options.buttonInactiveClass);
+        this._changeErrorState(field);
+        this._changeButtonState();
       });
     });
   }

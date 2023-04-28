@@ -1,7 +1,7 @@
 // imports
 
 import {initialCards, validationOptions} from './Data.js';
-import {openPopup, closePopup, placePopupExitListeners, resetErrors} from './GlobalFunctions.js';
+import {openPopup, closePopup, placePopupExitListeners} from './GlobalFunctions.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 
@@ -26,8 +26,6 @@ const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 
 const places = document.querySelector(".places");
-
-const inputEvt = new Event('input');
 
 // functions
 
@@ -54,17 +52,13 @@ buttonEdit.addEventListener('click', function() {
   openPopup(profileEditPopup);
   fieldProfileName.value = profileName.textContent;
   fieldProfileAbout.value = profileAbout.textContent;
-  fieldProfileName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
-  fieldProfileAbout.dispatchEvent(inputEvt);
+  validatorEdit.resetErrors(); // сделал через метод класса
 });
 
 buttonAdd.addEventListener('click', function () {
   placeAddForm.reset();
   openPopup(placeAddPopup);
-  fieldPlaceName.dispatchEvent(inputEvt);
-  fieldPlaceName.dispatchEvent(inputEvt); //инициируем input для начальной валидации при открытии
-  fieldPlacePicLink.dispatchEvent(inputEvt);
-  resetErrors(placeAddPopup); // Сброс ошибок, чтобы при открытии они не отображались, хотя на мой взгляд логичнее отображать ошибки раз поля пустые
+  validatorAdd.resetErrors(); // сделал через метод класса
 });
 
 profileEditForm.addEventListener('submit', function (event) {

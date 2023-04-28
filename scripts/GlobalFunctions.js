@@ -29,13 +29,3 @@ export function placePopupExitListeners (popups) {
   });
 }
 
-export function resetErrors (popup) {
-  const errors = popup.querySelectorAll('.popup__error-message_shown');
-  const errorFields = popup.querySelectorAll('.popup__field_invalid');
-  errors.forEach((error) => {
-    error.classList.remove('popup__error-message_shown')
-  });
-  errorFields.forEach((field) => {
-    field.classList.remove('popup__field_invalid');
-  });
-}
