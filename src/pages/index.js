@@ -2,7 +2,6 @@
 import './index.css';
 
 import {buttonEdit, buttonAdd, initialCards, validationOptions} from '../utils/constants.js';
-import {openPopup, closePopup, placePopupExitListeners} from '../utils/utils.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from "../components/PopupWithForm";
@@ -50,13 +49,13 @@ placeAddPopup.setEventListeners();
 validatorEdit.enableValidation();
 validatorAdd.enableValidation();
 
-buttonEdit.addEventListener('click', function() {
+buttonEdit.addEventListener('click', () => {
   profileEditPopup.changeInputValues(user.getUserInfo());
   profileEditPopup.open();
   validatorEdit.resetErrors(); // сделал через метод класса
 });
 
-buttonAdd.addEventListener('click', function () {
+buttonAdd.addEventListener('click', () => {
   placeAddPopup.open();
   validatorAdd.resetErrors();
 });
