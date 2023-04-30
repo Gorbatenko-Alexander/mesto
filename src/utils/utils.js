@@ -1,5 +1,7 @@
 // functions
 
+import Card from "../components/Card";
+
 export function closeByEsc (evt) {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
@@ -28,4 +30,3 @@ export function placePopupExitListeners (popups) {
     });
   });
 }
-

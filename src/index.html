@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 <body class="page">
   <header class="header">
-    <img src="./images/logo.svg" alt="Место" class="header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Место" class="header__logo">
   </header>
   <main class="main">
     <section class="profile">
-      <img alt="аватар" src="./images/avatar.jpg" class="profile__avatar">
+      <img alt="аватар" src="<%=require('./images/avatar.jpg')%>" class="profile__avatar">
       <div class="profile__info">
         <div class="profile__title">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -25,7 +24,7 @@
     <section aria-label="Места" class="places">
       <template id="place">
         <div class="places__place-card">
-          <img alt="Карачаевск" src="./images/kirill-pershin-1088404-unsplash.jpg" class="places__place-pic">
+          <img alt="" src="" class="places__place-pic">
           <h2 class="places__place-title">Карачаевск</h2>
           <button type="button" class="places__place-like"></button>
           <button type="button" class="places__place-remove"></button>
@@ -42,11 +41,11 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" name="edit-profile" class="popup__fields" novalidate>
         <label class="popup__input-container">
-          <input type="text" id="profile-name" class="popup__field" placeholder="Имя" required minlength="2" maxlength="40">
+          <input type="text" id="profile-name" name="name" class="popup__field" placeholder="Имя" required minlength="2" maxlength="40">
           <span class="profile-name-error popup__error-message"></span>
         </label>
         <label class="popup__input-container">
-          <input type="text" id="profile-about" class="popup__field" placeholder="О себе" required minlength="2" maxlength="200">
+          <input type="text" id="profile-about" name="about" class="popup__field" placeholder="О себе" required minlength="2" maxlength="200">
           <span class="profile-about-error popup__error-message"></span>
         </label>
         <input type="submit" class="popup__submit-button" value="Сохранить">
@@ -59,11 +58,11 @@
       <h2 class="popup__title">Новое место</h2>
       <form action="#" name="add-place" class="popup__fields" novalidate>
         <label class="popup__input-container">
-          <input type="text" id="place-name" class="popup__field" placeholder="Название" required minlength="2" maxlength="30">
+          <input type="text" id="place-name" name="name" class="popup__field" placeholder="Название" required minlength="2" maxlength="30">
           <span class="place-name-error popup__error-message"></span>
         </label>
         <label class="popup__input-container">
-          <input type="url" id="place-pic-link" class="popup__field" placeholder="Ссылка на картинку" required>
+          <input type="url" id="place-pic-link" name="link" class="popup__field" placeholder="Ссылка на картинку" required>
           <span class="place-pic-link-error popup__error-message"></span>
         </label>
         <input type="submit" class="popup__submit-button" value="Сохранить">
@@ -77,6 +76,5 @@
       <p class="popup__label"></p>
     </div>
   </div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

@@ -1,18 +1,7 @@
-// imports
-
-import {openPopup} from './GlobalFunctions.js';
-
-// variables
-
-const photoZoomPopup = document.querySelector("#pic-zoom");
-const photoZoomPopupPic = photoZoomPopup.querySelector(".popup__picture");
-const photoZoomPopupLabel = photoZoomPopup.querySelector(".popup__label");
-
-// class
-
-export class Card {
-  constructor (placeInfo, selector) {
+export default class Card {
+  constructor (placeInfo, selector, handleCardClick) {
     this._placeInfo = placeInfo;
+    this._handleCardClick = handleCardClick;
 
     this._placeTemplate = document.querySelector(selector).content.querySelector('.places__place-card');
     this._place = this._placeTemplate.cloneNode(true);
@@ -44,10 +33,7 @@ export class Card {
 
   _addZoomListener () {
     this._placePic.addEventListener('click', () => {
-      photoZoomPopupPic.src = this._placeInfo.link;
-      photoZoomPopupPic.alt = this._placeInfo.name;
-      photoZoomPopupLabel.textContent = this._placeInfo.name;
-      openPopup(photoZoomPopup);
+      this._handleCardClick(this._placeInfo.link, this._placeInfo.name);
     });
   }
 

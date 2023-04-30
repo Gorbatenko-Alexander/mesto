@@ -1,6 +1,6 @@
 // class
 
-export class FormValidator { // вроде всё вычистил, теперь обращение только через this где возможно
+export default class FormValidator { // вроде всё вычистил, теперь обращение только через this где возможно
   constructor(options, form) {
     this._options = options;
     this._form = form;
