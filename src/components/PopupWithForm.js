@@ -2,9 +2,9 @@ import Popup from "./Popup";
 import {closePopup} from "../utils/utils";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submit) {
+  constructor(popupSelector, submitCallback) {
     super(popupSelector);
-    this._submit = submit;
+    this._submitCallback = submitCallback;
     this.form = this._popup.querySelector('.popup__fields');
     this._fields = this.form.querySelectorAll('.popup__field');
   }
@@ -13,6 +13,12 @@ export default class PopupWithForm extends Popup {
     const result = {};
     this._fields.forEach((field) => result[field.name] = field.value);
     return result;
+  }
+
+  _submit(evt) {
+    evt.preventDefault();
+    this._submitCallback(this._getInputValues());
+    this.close();
   }
 
   setEventListeners() {

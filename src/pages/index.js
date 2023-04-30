@@ -29,15 +29,13 @@ const cards = new Section ({
 const user = new UserInfo({profileNameSelector: '.profile__name', profileAboutSelector: '.profile__about'});
 
 const photoZoomPopup = new PopupWithImage('#pic-zoom');
-const profileEditPopup = new PopupWithForm('#edit-profile', (evt) => {
-  evt.preventDefault();
-  user.setUserInfo(profileEditPopup._getInputValues());
-  profileEditPopup.close();
+
+const profileEditPopup = new PopupWithForm('#edit-profile', (inputValues) => {
+  user.setUserInfo(inputValues);
 });
-const placeAddPopup = new PopupWithForm('#add-place', (evt) => {
-  evt.preventDefault();
-  cards.addItem(createCard(placeAddPopup._getInputValues()));
-  placeAddPopup.close();
+
+const placeAddPopup = new PopupWithForm('#add-place', (inputValues) => {
+  cards.addItem(createCard(inputValues));
 });
 
 const validatorEdit = new FormValidator(validationOptions, profileEditPopup.form);
