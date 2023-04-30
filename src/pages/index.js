@@ -9,13 +9,19 @@ import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
 
+// Functions
+
+function createCard(placeInfo) {
+  const card = new Card(placeInfo, '#place', photoZoomPopup.open.bind(photoZoomPopup));
+  return card.returnCard();
+}
+
 // Objects
 
 const cards = new Section ({
     items: initialCards,
     renderer: (cardInfo) => {
-      const card = new Card(cardInfo, '#place', photoZoomPopup.open.bind(photoZoomPopup));
-      cards.addItem(card.returnCard());
+      cards.addItem(createCard(cardInfo));
     } },
   '.places'
 );
@@ -30,8 +36,7 @@ const profileEditPopup = new PopupWithForm('#edit-profile', (evt) => {
 });
 const placeAddPopup = new PopupWithForm('#add-place', (evt) => {
   evt.preventDefault();
-  const card = new Card(placeAddPopup._getInputValues(), '#place', photoZoomPopup.open.bind(photoZoomPopup));
-  cards.addItem(card.returnCard());
+  cards.addItem(createCard(placeAddPopup._getInputValues()));
   placeAddPopup.close();
 });
 
