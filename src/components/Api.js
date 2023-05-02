@@ -9,7 +9,7 @@ export default class Api {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject(res.status);
+        return Promise.reject(`Ошибка ${res.status}`);
       }
     }
     return check(res)

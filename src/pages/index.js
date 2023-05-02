@@ -35,6 +35,21 @@ function createCard(placeInfo) {
   return card.returnCard();
 }
 
+function updateUserInfo() {
+  return api.getUserInfo()
+    .then((res) => {
+      user.setUserInfo(res);
+      return Promise.resolve();
+    });
+}
+
+function updateCards() {
+  return api.getInitialCards()
+    .then((res) => {
+      cards.renderItems(res);
+    });
+}
+
 // ------------------------------- Objects -------------------------------
 
 const api = new Api({
@@ -101,8 +116,7 @@ const validatorAvatar = new FormValidator(validationOptions, avatarEditPopup.for
 
 // ------------------------------- Code -------------------------------
 
-api.getInitialCards().then((res) => {cards.renderItems(res)});
-api.getUserInfo().then((res) => {user.setUserInfo(res)});
+updateUserInfo().then(updateCards());
 
 photoZoomPopup.setEventListeners();
 profileEditPopup.setEventListeners();
