@@ -23,13 +23,24 @@ function createCard(placeInfo) {
     deleteCallback: (cardElement, cardId) => {
       placeRemovePopup.open(cardElement, cardId)
     },
-    addLikeCallback: (cardId, likesElement) => {
-      api.addLike(cardId)
-        .then((res) => {likesElement.textContent = res.likes.length});
-    },
-    removeLikeCallback: (cardId, likesElement) => {
-      api.removeLike(cardId)
-        .then((res) => {likesElement.textContent = res.likes.length});
+    changeLikeCallback: (likesElement, likeButton, placeInfo) => {
+      if (!placeInfo.likes.some((like) => {return like._id === user.id})) {
+        api.addLike(placeInfo._id)
+          .then((res) => {
+            likesElement.textContent = res.likes.length;
+            likeButton.classList.add('places__place-like_active');
+            placeInfo.likes = res.likes;
+          })
+          .catch((error) => {console.log(error)});
+      } else {
+        api.removeLike(placeInfo._id)
+          .then((res) => {
+            likesElement.textContent = res.likes.length;
+            likeButton.classList.remove('places__place-like_active');
+            placeInfo.likes = res.likes;
+          })
+          .catch((error) => {console.log(error)});
+      }
     }
   });
   return card.returnCard();
@@ -40,14 +51,16 @@ function updateUserInfo() {
     .then((res) => {
       user.setUserInfo(res);
       return Promise.resolve();
-    });
+    })
+    .catch((error) => {console.log(error)});
 }
 
 function updateCards() {
   return api.getInitialCards()
     .then((res) => {
       cards.renderItems(res);
-    });
+    })
+    .catch((error) => {console.log(error)});
 }
 
 // ------------------------------- Objects -------------------------------
@@ -75,6 +88,9 @@ const profileEditPopup = new PopupWithForm('#edit-profile', (inputValues, button
   api.changeUserInfo(inputValues)
     .then((userInfo) => {
       user.setUserInfo(userInfo);
+    })
+    .catch((error) => {console.log(error)})
+    .finally(() => {
       buttonElement.value = "Сохранить";
       profileEditPopup.close();
     });
@@ -85,6 +101,9 @@ const placeAddPopup = new PopupWithForm('#add-place', (inputValues, buttonElemen
   api.addCard(inputValues)
     .then((placeInfo) => {
       cards.addItem(createCard(placeInfo));
+    })
+    .catch((error) => {console.log(error)})
+    .finally(() => {
       buttonElement.value = "Создать";
       placeAddPopup.close();
     });
@@ -95,6 +114,9 @@ const avatarEditPopup = new PopupWithForm('#change-avatar', (inputValues, button
   api.changeUserAvatar(inputValues)
     .then((userInfo) => {
       user.setUserInfo(userInfo);
+    })
+    .catch((error) => {console.log(error)})
+    .finally(() => {
       buttonElement.value = "Сохранить";
       avatarEditPopup.close();
     });
@@ -105,6 +127,9 @@ const placeRemovePopup = new PopupWithConfirmation('#confirm', (cardElement, car
   api.deleteCard(cardId)
     .then(() => {
       cardElement.remove();
+    })
+    .catch((error) => {console.log(error)})
+    .finally(() => {
       buttonElement.value = "Да";
       placeRemovePopup.close();
     });
@@ -116,7 +141,7 @@ const validatorAvatar = new FormValidator(validationOptions, avatarEditPopup.for
 
 // ------------------------------- Code -------------------------------
 
-updateUserInfo().then(updateCards());
+updateUserInfo().then(updateCards);
 
 photoZoomPopup.setEventListeners();
 profileEditPopup.setEventListeners();

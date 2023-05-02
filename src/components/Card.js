@@ -4,8 +4,7 @@ export default class Card {
     this._handleCardClick = cardData.handleCardClick;
     this._userId = cardData.userId;
     this._deleteCallback = cardData.deleteCallback;
-    this._addLikeCallback = cardData.addLikeCallback;
-    this._removeLikeCallback = cardData.removeLikeCallback;
+    this._changeLikeCallback = cardData.changeLikeCallback;
 
     this._placeTemplate = document.querySelector(cardData.selector).content.querySelector('.places__place-card');
     this._place = this._placeTemplate.cloneNode(true);
@@ -24,22 +23,14 @@ export default class Card {
     if (this._userId === this._placeInfo.owner._id) {
       this._placeRemoveButton.classList.remove('places__place-remove_disabled');
     };
-    this._isLiked = this._placeInfo.likes.some((like) => {return like._id === this._userId});
-    if (this._isLiked) {
+    if (this._placeInfo.likes.some((like) => {return like._id === this._userId})) {
       this._placeLikeButton.classList.add('places__place-like_active');
     };
   }
 
   _addLikeListener () {
     this._placeLikeButton.addEventListener('click', (evt) => {
-      if (this._isLiked) {
-        this._removeLikeCallback(this._placeInfo._id, this._placeLikes);
-        this._isLiked = !this._isLiked;
-      } else {
-        this._addLikeCallback(this._placeInfo._id, this._placeLikes);
-        this._isLiked = !this._isLiked;
-      };
-      evt.target.classList.toggle('places__place-like_active');
+      this._changeLikeCallback(this._placeLikes, this._placeLikeButton, this._placeInfo);
     });
   }
 

@@ -1,5 +1,4 @@
 import Popup from "./Popup";
-import {closePopup} from "../utils/utils";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitCallback) {
@@ -26,8 +25,8 @@ export default class PopupWithForm extends Popup {
     this.form.addEventListener('submit', this._submit.bind(this));
   }
 
-  changeInputValues (userInfo) {
-    this._fields.forEach((field) => field.value = userInfo[field.name]);
+  changeInputValues (inputValues) {
+    this._fields.forEach((field) => field.value = inputValues[field.name]);
   }
 
   close() {

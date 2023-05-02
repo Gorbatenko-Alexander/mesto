@@ -5,15 +5,11 @@ export default class Api {
   }
 
   _checkStatus(res) {
-    const check = (res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-      }
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка ${res.status}`);
     }
-    return check(res)
-    .catch((error) => {console.log(error)})
   }
 
   getInitialCards() {
