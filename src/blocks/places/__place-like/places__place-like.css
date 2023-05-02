@@ -8,7 +8,7 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  margin: auto 20px auto auto;
+  margin: 0;
   transition: opacity 0.2s;
 }
 

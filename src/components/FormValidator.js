@@ -1,6 +1,6 @@
 // class
 
-export default class FormValidator { // вроде всё вычистил, теперь обращение только через this где возможно
+export default class FormValidator {
   constructor(options, form) {
     this._options = options;
     this._form = form;
@@ -45,7 +45,7 @@ export default class FormValidator { // вроде всё вычистил, те
     }
   }
 
-  resetErrors () { // добавил очистку ошибок и состояние кнопки
+  resetErrors () {
     this._fields.forEach((field) => {
       this._hideError(field);
     })
