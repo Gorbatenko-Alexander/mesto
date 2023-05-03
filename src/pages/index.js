@@ -26,10 +26,8 @@ function createCard(placeInfo) {
     changeLikeCallback: (isLiked, cardId) => { // Теперь колбэк обрабатывает только наличие лайка и ID карточки и возвращает Promise, а операции с лайками производятся внутри Cards
       if (!isLiked) {
         return api.addLike(cardId)
-          .catch((error) => {console.log(error)}); // catch на случай ошибки, иначе не вернётся Promise из then
       } else {
         return api.removeLike(cardId)
-          .catch((error) => {console.log(error)}); // catch на случай ошибки, иначе не вернётся Promise из then
       }
     }
   });
