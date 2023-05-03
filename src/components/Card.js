@@ -23,14 +23,25 @@ export default class Card {
     if (this._userId === this._placeInfo.owner._id) {
       this._placeRemoveButton.classList.remove('places__place-remove_disabled');
     };
-    if (this._placeInfo.likes.some((like) => {return like._id === this._userId})) {
+    this._isLiked = this._placeInfo.likes.some((like) => {return like._id === this._userId});
+    if (this._isLiked) {
       this._placeLikeButton.classList.add('places__place-like_active');
     };
   }
 
-  _addLikeListener () {
-    this._placeLikeButton.addEventListener('click', (evt) => {
-      this._changeLikeCallback(this._placeLikes, this._placeLikeButton, this._placeInfo);
+  _changeLikeListener () {
+    this._placeLikeButton.addEventListener('click', () => { // Теперь все изменения лайков выполняются внутри Cards
+      this._changeLikeCallback(this._isLiked, this._placeInfo._id)
+        .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
+          this._isLiked = res.likes.some((like) => {return like._id === this._userId});
+          this._placeLikes.textContent = res.likes.length;
+          if (this._isLiked) {
+            this._placeLikeButton.classList.add('places__place-like_active');
+          } else {
+            this._placeLikeButton.classList.remove('places__place-like_active');
+          }
+        })
+        .catch((error) => {console.log(error)}); // catch на случай ошибки
     });
   }
 
@@ -47,7 +58,7 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._addLikeListener ();
+    this._changeLikeListener ();
     this._addRemoveListener ();
     this._addZoomListener ();
   }

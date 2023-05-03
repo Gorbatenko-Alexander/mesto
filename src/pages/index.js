@@ -23,23 +23,13 @@ function createCard(placeInfo) {
     deleteCallback: (cardElement, cardId) => {
       placeRemovePopup.open(cardElement, cardId)
     },
-    changeLikeCallback: (likesElement, likeButton, placeInfo) => {
-      if (!placeInfo.likes.some((like) => {return like._id === user.id})) {
-        api.addLike(placeInfo._id)
-          .then((res) => {
-            likesElement.textContent = res.likes.length;
-            likeButton.classList.add('places__place-like_active');
-            placeInfo.likes = res.likes;
-          })
-          .catch((error) => {console.log(error)});
+    changeLikeCallback: (isLiked, cardId) => { // Теперь колбэк обрабатывает только наличие лайка и ID карточки и возвращает Promise, а операции с лайками производятся внутри Cards
+      if (!isLiked) {
+        return api.addLike(cardId)
+          .catch((error) => {console.log(error)}); // catch на случай ошибки, иначе не вернётся Promise из then
       } else {
-        api.removeLike(placeInfo._id)
-          .then((res) => {
-            likesElement.textContent = res.likes.length;
-            likeButton.classList.remove('places__place-like_active');
-            placeInfo.likes = res.likes;
-          })
-          .catch((error) => {console.log(error)});
+        return api.removeLike(cardId)
+          .catch((error) => {console.log(error)}); // catch на случай ошибки, иначе не вернётся Promise из then
       }
     }
   });
@@ -88,11 +78,11 @@ const profileEditPopup = new PopupWithForm('#edit-profile', (inputValues, button
   api.changeUserInfo(inputValues)
     .then((userInfo) => {
       user.setUserInfo(userInfo);
+      profileEditPopup.close(); // Перенёс закрытие попапа в then
     })
     .catch((error) => {console.log(error)})
     .finally(() => {
       buttonElement.value = "Сохранить";
-      profileEditPopup.close();
     });
 });
 
@@ -101,11 +91,11 @@ const placeAddPopup = new PopupWithForm('#add-place', (inputValues, buttonElemen
   api.addCard(inputValues)
     .then((placeInfo) => {
       cards.addItem(createCard(placeInfo));
+      placeAddPopup.close(); // Перенёс закрытие попапа в then
     })
     .catch((error) => {console.log(error)})
     .finally(() => {
       buttonElement.value = "Создать";
-      placeAddPopup.close();
     });
 });
 
@@ -114,11 +104,11 @@ const avatarEditPopup = new PopupWithForm('#change-avatar', (inputValues, button
   api.changeUserAvatar(inputValues)
     .then((userInfo) => {
       user.setUserInfo(userInfo);
+      avatarEditPopup.close(); // Перенёс закрытие попапа в then
     })
     .catch((error) => {console.log(error)})
     .finally(() => {
       buttonElement.value = "Сохранить";
-      avatarEditPopup.close();
     });
 });
 
@@ -127,11 +117,11 @@ const placeRemovePopup = new PopupWithConfirmation('#confirm', (cardElement, car
   api.deleteCard(cardId)
     .then(() => {
       cardElement.remove();
+      placeRemovePopup.close(); // Перенёс закрытие попапа в then
     })
     .catch((error) => {console.log(error)})
     .finally(() => {
       buttonElement.value = "Да";
-      placeRemovePopup.close();
     });
 });
 
