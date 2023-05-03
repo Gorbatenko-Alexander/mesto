@@ -35,7 +35,7 @@ export default class Card {
       if (this._isLiked) {
         this._removeLikeCallback(this._placeInfo._id)
           .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
-            this._isLiked = !this._isLiked;
+            this._isLiked = res.likes.some((like) => {return like._id === this._userId}); // Поскольку кто-то может лайкнуть с другого места - факт наличия лайка определяется по ответу сервера
             this._placeLikes.textContent = res.likes.length;
             this._placeLikeButton.classList.remove('places__place-like_active');
           })
@@ -43,7 +43,7 @@ export default class Card {
       } else {
         this._addLikeCallback(this._placeInfo._id)
           .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
-            this._isLiked = !this._isLiked;
+            this._isLiked = res.likes.some((like) => {return like._id === this._userId}); // Поскольку кто-то может лайкнуть с другого места - факт наличия лайка определяется по ответу сервера
             this._placeLikes.textContent = res.likes.length;
             this._placeLikeButton.classList.add('places__place-like_active');
           })
