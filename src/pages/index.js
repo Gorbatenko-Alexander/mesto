@@ -23,13 +23,8 @@ function createCard(placeInfo) {
     deleteCallback: (cardElement, cardId) => {
       placeRemovePopup.open(cardElement, cardId)
     },
-    changeLikeCallback: (isLiked, cardId) => { // Теперь колбэк обрабатывает только наличие лайка и ID карточки и возвращает Promise, а операции с лайками производятся внутри Cards
-      if (!isLiked) {
-        return api.addLike(cardId)
-      } else {
-        return api.removeLike(cardId)
-      }
-    }
+    addLikeCallback: api.addLike.bind(api),
+    removeLikeCallback: api.removeLike.bind(api)
   });
   return card.returnCard();
 }

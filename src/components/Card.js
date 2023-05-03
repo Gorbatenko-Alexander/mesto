@@ -4,7 +4,8 @@ export default class Card {
     this._handleCardClick = cardData.handleCardClick;
     this._userId = cardData.userId;
     this._deleteCallback = cardData.deleteCallback;
-    this._changeLikeCallback = cardData.changeLikeCallback;
+    this._addLikeCallback = cardData.addLikeCallback;
+    this._removeLikeCallback = cardData.removeLikeCallback;
 
     this._placeTemplate = document.querySelector(cardData.selector).content.querySelector('.places__place-card');
     this._place = this._placeTemplate.cloneNode(true);
@@ -31,18 +32,24 @@ export default class Card {
 
   _changeLikeListener () {
     this._placeLikeButton.addEventListener('click', () => { // Теперь все изменения лайков выполняются внутри Cards
-      this._changeLikeCallback(this._isLiked, this._placeInfo._id)
-        .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
-          this._isLiked = res.likes.some((like) => {return like._id === this._userId});
-          this._placeLikes.textContent = res.likes.length;
-          if (this._isLiked) {
-            this._placeLikeButton.classList.add('places__place-like_active');
-          } else {
+      if (this._isLiked) {
+        this._removeLikeCallback(this._placeInfo._id)
+          .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
+            this._isLiked = res.likes.some((like) => {return like._id === this._userId});
+            this._placeLikes.textContent = res.likes.length;
             this._placeLikeButton.classList.remove('places__place-like_active');
-          }
-        })
-        .catch((error) => {console.log(error)}); // catch на случай ошибки
-    });
+          })
+          .catch((error) => {console.log(error)}); // catch на случай ошибки;
+      } else {
+        this._addLikeCallback(this._placeInfo._id)
+          .then((res) => {  // Все данные о лайках теперь определяются по ответу сервера внутри then, в том числе сердечко
+            this._isLiked = res.likes.some((like) => {return like._id === this._userId});
+            this._placeLikes.textContent = res.likes.length;
+            this._placeLikeButton.classList.add('places__place-like_active');
+          })
+          .catch((error) => {console.log(error)}); // catch на случай ошибки;
+      }
+    })
   }
 
   _addRemoveListener () {
