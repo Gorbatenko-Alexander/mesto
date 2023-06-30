@@ -49,9 +49,9 @@ function updateCards() {
 // ------------------------------- Objects -------------------------------
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
   headers: {
-    authorization: '8135a91b-4470-4288-b181-7c53c6e7400a',
+    authorization: '02fcb90c-1852-4abc-a2c7-420ba480a85e',
     'Content-Type': 'application/json'
   }
 });
